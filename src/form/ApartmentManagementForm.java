@@ -363,7 +363,7 @@ public final class ApartmentManagementForm extends javax.swing.JFrame {
         pnContent.updateUI();
     }//GEN-LAST:event_btnPeopleDetailActionPerformed
     
-    PanelAnnounce pa = new PanelAnnounce();
+    PanelAnnounce pa = ShareData.getInstance().getPa();
     private void btnAnnounceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnnounceActionPerformed
         pnContent.remove(pa);
         pnContent.remove(ppd);
@@ -433,10 +433,8 @@ public final class ApartmentManagementForm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ApartmentManagementForm().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new ApartmentManagementForm().setVisible(true);
         });
     }
 
