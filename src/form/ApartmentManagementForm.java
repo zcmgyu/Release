@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.plaf.ColorUIResource;
 import org.jdesktop.swingx.JXCollapsiblePane;
 
 /**
@@ -26,12 +27,16 @@ public final class ApartmentManagementForm extends javax.swing.JFrame {
     public ApartmentManagementForm() {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            UIManager.put("ComboBox.background", new ColorUIResource(Color.WHITE));
+            UIManager.put("ComboBox.selectionBackground", new ColorUIResource(Color.BLACK));
+            UIManager.put("ComboBox.selectionForeground", new ColorUIResource(Color.BLACK));
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             Logger.getLogger(ApartmentManagementForm.class.getName()).log(Level.SEVERE, null, ex);
         }
         initComponents();
         initCollapsePanel();
         initAnnounce();
+        
     }
     
     void refreshAnnounce() {
@@ -82,11 +87,13 @@ public final class ApartmentManagementForm extends javax.swing.JFrame {
         btnAnnounce = new org.jdesktop.swingx.JXButton();
         btnPeopleDetail = new org.jdesktop.swingx.JXButton();
         btnMail = new org.jdesktop.swingx.JXButton();
+        btnRoom = new org.jdesktop.swingx.JXButton();
         pnContent = new javax.swing.JPanel();
         pnResizable = new javax.swing.JPanel();
         btnAccount2 = new org.jdesktop.swingx.JXButton();
         btnAnnounce2 = new org.jdesktop.swingx.JXButton();
         btnPeopleDetail2 = new org.jdesktop.swingx.JXButton();
+        btnRoom2 = new org.jdesktop.swingx.JXButton();
         btnMail2 = new org.jdesktop.swingx.JXButton();
 
         jScrollPane1.setBackground(new java.awt.Color(255, 255, 255));
@@ -129,7 +136,7 @@ public final class ApartmentManagementForm extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnAccountLayout.createSequentialGroup()
                 .addGap(135, 135, 135)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 343, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 704, Short.MAX_VALUE)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(pnAccountLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -162,6 +169,11 @@ public final class ApartmentManagementForm extends javax.swing.JFrame {
         btnHamburger.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/menu.png"))); // NOI18N
         btnHamburger.setFocusPainted(false);
         btnHamburger.setOpaque(false);
+        btnHamburger.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHamburgerActionPerformed(evt);
+            }
+        });
 
         btnAccount.setBackground(new java.awt.Color(255, 255, 255));
         btnAccount.setBorder(null);
@@ -219,22 +231,34 @@ public final class ApartmentManagementForm extends javax.swing.JFrame {
             }
         });
 
+        btnRoom.setBackground(new java.awt.Color(255, 255, 255));
+        btnRoom.setBorder(null);
+        btnRoom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/home-variant(1).png"))); // NOI18N
+        btnRoom.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/image/home-variant.png"))); // NOI18N
+        btnRoom.setFocusPainted(false);
+        btnRoom.setOpaque(false);
+        btnRoom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRoomActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnLeftLayout = new javax.swing.GroupLayout(pnLeft);
         pnLeft.setLayout(pnLeftLayout);
         pnLeftLayout.setHorizontalGroup(
             pnLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnLeftLayout.createSequentialGroup()
+                .addComponent(btnAccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(pnLeftLayout.createSequentialGroup()
                 .addGap(2, 2, 2)
                 .addGroup(pnLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPeopleDetail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAnnounce, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnHamburger, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(pnLeftLayout.createSequentialGroup()
-                .addGroup(pnLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnAccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPeopleDetail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         pnLeftLayout.setVerticalGroup(
             pnLeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,8 +269,10 @@ public final class ApartmentManagementForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPeopleDetail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRoom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 152, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 273, Short.MAX_VALUE)
                 .addComponent(btnAccount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -273,6 +299,7 @@ public final class ApartmentManagementForm extends javax.swing.JFrame {
         GBtnAnnounce.add(btnAnnounce2);
         btnAnnounce2.setFocusPainted(false);
         btnAnnounce2.setOpaque(false);
+        btnAnnounce2.setPreferredSize(new java.awt.Dimension(51, 24));
         btnAnnounce2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAnnounce2ActionPerformed(evt);
@@ -291,11 +318,25 @@ public final class ApartmentManagementForm extends javax.swing.JFrame {
             }
         });
 
+        btnRoom2.setBackground(new java.awt.Color(255, 255, 255));
+        btnRoom2.setBorder(null);
+        btnRoom2.setText("Quản lí căn hộ");
+        btnRoom2.setBorderPainted(false);
+        btnRoom2.setFocusPainted(false);
+        btnRoom2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnRoom2.setOpaque(false);
+        btnRoom2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRoom2ActionPerformed(evt);
+            }
+        });
+
         btnMail2.setBackground(new java.awt.Color(255, 255, 255));
         btnMail2.setBorder(null);
-        btnMail2.setText("Email");
-        GBtnEmail.add(btnMail2);
+        btnMail2.setText("E-mail");
+        btnMail2.setBorderPainted(false);
         btnMail2.setFocusPainted(false);
+        btnMail2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         btnMail2.setOpaque(false);
         btnMail2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -310,21 +351,24 @@ public final class ApartmentManagementForm extends javax.swing.JFrame {
             .addGroup(pnResizableLayout.createSequentialGroup()
                 .addGroup(pnResizableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAccount2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAnnounce2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnPeopleDetail2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMail2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAnnounce2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPeopleDetail2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 4, Short.MAX_VALUE))
+            .addComponent(btnRoom2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(btnMail2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pnResizableLayout.setVerticalGroup(
             pnResizableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnResizableLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(btnAnnounce2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnPeopleDetail2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnMail2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
+                .addGap(39, 39, 39)
+                .addComponent(btnAnnounce2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(btnPeopleDetail2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnRoom2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnMail2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 276, Short.MAX_VALUE)
                 .addComponent(btnAccount2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(19, 19, 19))
         );
@@ -345,6 +389,7 @@ public final class ApartmentManagementForm extends javax.swing.JFrame {
         ppd = new PanelPeopleDetail();
         pnContent.remove(ppd);
         pnContent.remove(pa);
+        pnContent.remove(pr);
         pnContent.add(ppd);
         // EMAIL
         btnMail.setEnabled(true);
@@ -355,6 +400,11 @@ public final class ApartmentManagementForm extends javax.swing.JFrame {
         btnAnnounce.setEnabled(true);
         btnAnnounce2.setEnabled(true);
         btnAnnounce2.setForeground(Color.BLACK);
+        // ROOM
+        btnRoom.setEnabled(true);
+        btnRoom2.setEnabled(true);
+        btnRoom2.setForeground(Color.BLACK);
+        
         // People Detail button DISABLE
         btnPeopleDetail.setEnabled(false);
         btnPeopleDetail2.setEnabled(false);
@@ -363,16 +413,21 @@ public final class ApartmentManagementForm extends javax.swing.JFrame {
         pnContent.updateUI();
     }//GEN-LAST:event_btnPeopleDetailActionPerformed
     
-    PanelAnnounce pa = ShareData.getInstance().getPa();
+    PanelAnnounce pa = new PanelAnnounce();
     private void btnAnnounceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnnounceActionPerformed
         pnContent.remove(pa);
         pnContent.remove(ppd);
+        pnContent.remove(pr);
         pa = new PanelAnnounce();
         pnContent.add(pa);
         // Announce Button
         btnAnnounce.setEnabled(false);
         btnAnnounce2.setEnabled(false);
         btnAnnounce2.setForeground(Color.WHITE);
+        // ROOM
+        btnRoom.setEnabled(true);
+        btnRoom2.setEnabled(true);
+        btnRoom2.setForeground(Color.BLACK);
         // EMAIL
         btnMail.setEnabled(true);
         btnMail2.setEnabled(true);
@@ -397,10 +452,48 @@ public final class ApartmentManagementForm extends javax.swing.JFrame {
     private void btnMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnMailActionPerformed
+    PanelRoom pr = new PanelRoom();
+    private void btnRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRoomActionPerformed
+        // ROOM
+        pr = new PanelRoom();
+        pnContent.remove(pr);
+        pnContent.remove(pa);
+        pnContent.remove(ppd);
+        pnContent.add(pr);
+        // EMAIL
+        btnMail.setEnabled(true);
+        btnMail2.setEnabled(true);
+        btnMail2.setForeground(Color.BLACK);
+
+        // ANNOUNCE
+        btnAnnounce.setEnabled(true);
+        btnAnnounce2.setEnabled(true);
+        btnAnnounce2.setForeground(Color.BLACK);
+        // PEOPLE
+        btnPeopleDetail.setEnabled(true);
+        btnPeopleDetail2.setEnabled(true);
+        btnPeopleDetail2.setForeground(Color.BLACK);
+        // People Detail button DISABLE
+        btnRoom.setEnabled(false);
+        btnRoom2.setEnabled(false);
+        btnRoom2.setForeground(Color.WHITE);
+        // ---- //
+        pnContent.updateUI();
+        
+       
+    }//GEN-LAST:event_btnRoomActionPerformed
+
+    private void btnRoom2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRoom2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRoom2ActionPerformed
 
     private void btnMail2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMail2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnMail2ActionPerformed
+
+    private void btnHamburgerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHamburgerActionPerformed
+        
+    }//GEN-LAST:event_btnHamburgerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -433,8 +526,10 @@ public final class ApartmentManagementForm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new ApartmentManagementForm().setVisible(true);
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new ApartmentManagementForm().setVisible(true);
+            }
         });
     }
 
@@ -452,6 +547,8 @@ public final class ApartmentManagementForm extends javax.swing.JFrame {
     private org.jdesktop.swingx.JXButton btnMail2;
     private org.jdesktop.swingx.JXButton btnPeopleDetail;
     private org.jdesktop.swingx.JXButton btnPeopleDetail2;
+    private org.jdesktop.swingx.JXButton btnRoom;
+    private org.jdesktop.swingx.JXButton btnRoom2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

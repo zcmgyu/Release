@@ -141,6 +141,8 @@ public final class FormLogin extends javax.swing.JFrame {
         btnLogin.setBorder(null);
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
         btnLogin.setText("Login");
+        btnLogin.setFocusPainted(false);
+        btnLogin.setPaintBorderInsets(false);
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
@@ -150,6 +152,8 @@ public final class FormLogin extends javax.swing.JFrame {
         btnCancel.setBackground(new java.awt.Color(255, 255, 255));
         btnCancel.setBorder(null);
         btnCancel.setText("Cancel");
+        btnCancel.setFocusPainted(false);
+        btnCancel.setPaintBorderInsets(false);
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);
