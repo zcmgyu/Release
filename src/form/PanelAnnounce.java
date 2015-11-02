@@ -99,6 +99,9 @@ public final class PanelAnnounce extends javax.swing.JPanel {
                 dlm.addElement(am);
             }
             leftList.setModel(dlm);
+            if(selectedIndex >= 0) {
+                leftList.setSelectedIndex(selectedIndex);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(PanelAnnounce.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -276,7 +279,7 @@ public final class PanelAnnounce extends javax.swing.JPanel {
             TopShowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TopShowLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
+                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -309,6 +312,9 @@ public final class PanelAnnounce extends javax.swing.JPanel {
 
     private void leftListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_leftListValueChanged
         AnnounceModal am = leftList.getSelectedValue();
+        if(am == null) {
+            return;
+        }
         RightContent.setText(am.getContent());
     }//GEN-LAST:event_leftListValueChanged
 
@@ -349,7 +355,9 @@ public final class PanelAnnounce extends javax.swing.JPanel {
         check(evt);
     }//GEN-LAST:event_leftListMouseReleased
 
+    int selectedIndex = -1;
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
+        selectedIndex = leftList.getSelectedIndex();
         EditPopup ep = new EditPopup(null, true, amSend);
         ep.setLocationRelativeTo(this);
         ep.setVisible(true);
