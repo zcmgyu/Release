@@ -384,7 +384,7 @@ public final class ApartmentManagementForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAccountActionPerformed
     // Ghi chú: Chưa tạo đối tượng ra bên ngoài nên thằng Button không biết xóa thằng nào.
-    PanelPeopleDetail ppd = new PanelPeopleDetail();
+    PanelPeopleDetail ppd = ShareData.getInstance().getPpd();
     private void btnPeopleDetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeopleDetailActionPerformed
         ppd = new PanelPeopleDetail();
         pnContent.remove(ppd);
@@ -413,12 +413,12 @@ public final class ApartmentManagementForm extends javax.swing.JFrame {
         pnContent.updateUI();
     }//GEN-LAST:event_btnPeopleDetailActionPerformed
     
-    PanelAnnounce pa = new PanelAnnounce();
+    PanelAnnounce pa = ShareData.getInstance().getPa();
+    
     private void btnAnnounceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnnounceActionPerformed
         pnContent.remove(pa);
         pnContent.remove(ppd);
         pnContent.remove(pr);
-        pa = new PanelAnnounce();
         pnContent.add(pa);
         // Announce Button
         btnAnnounce.setEnabled(false);
@@ -452,7 +452,7 @@ public final class ApartmentManagementForm extends javax.swing.JFrame {
     private void btnMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnMailActionPerformed
-    PanelRoom pr = new PanelRoom();
+    PanelRoom pr = ShareData.getInstance().getPr();
     private void btnRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRoomActionPerformed
         // ROOM
         pr = new PanelRoom();
