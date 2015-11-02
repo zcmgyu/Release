@@ -330,6 +330,9 @@ public final class PanelAnnounce extends javax.swing.JPanel {
                 int update = st.executeUpdate(sql);
                 if (update > 0) {
                     JOptionPane.showMessageDialog(this, "Đã thêm 1 thông báo mới");
+                    txtTitle.setText("");
+                    txtContent.setText("");
+                    ShareData.getInstance().getPa().initTitle();
                 }
                 
         } catch (SQLException ex) {
