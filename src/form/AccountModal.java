@@ -7,7 +7,7 @@ package form;
 public class AccountModal {
     private String username;
     private int role;
-    private int test;
+    private String daylatest;
     public AccountModal() {
     }
 
