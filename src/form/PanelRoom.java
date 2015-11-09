@@ -37,9 +37,7 @@ public final class PanelRoom extends javax.swing.JPanel {
     }
     
     // Khởi tạo danh sách phòng
-    JXButton btnRoom;
-    String floor = "";
-    String status = "";
+//    JXButton btnRoom;
     
     void initListRoom(String sql) {
         //        String sql = "SELECT COUNT(ID) AS RoomCount FROM tblRoom";
@@ -59,7 +57,8 @@ public final class PanelRoom extends javax.swing.JPanel {
                 
                 pnListButton.add(pnRoom);
                 pnListButton.setPreferredSize(new Dimension(pnBottom.getWidth(), 1000));
-                btnRoom = new JXButton(Integer.toString(rs.getInt(2)));
+                // 
+                JXButton btnRoom = new JXButton(Integer.toString(rs.getInt(2)));
                 btnRoom.setPreferredSize(new Dimension(80, 80));
                 // Kiểm tra tình trạng của phòng
                 
@@ -76,10 +75,10 @@ public final class PanelRoom extends javax.swing.JPanel {
                     DialogRoomDetail drd = new DialogRoomDetail(null, true);
                     drd.setLocationRelativeTo(this);
                     drd.setVisible(true);
+                    
+                    System.out.println("ROOM NAME: " + btnRoom.getText());
                 });
-                
             }
-
         } catch (SQLException ex) {
             Logger.getLogger(PanelRoom.class.getName()).log(Level.SEVERE, null, ex);
         }
