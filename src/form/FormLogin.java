@@ -45,7 +45,7 @@ public final class FormLogin extends javax.swing.JFrame {
     public void initCompoundBorder() {
          // Theo dạng: txtUsername.setBoder(compoundBorder);
         Border line = BorderFactory.createLineBorder(Color.lightGray, 2);
-        Border empty = new EmptyBorder(0, 10, 0, 0); 
+        Border empty = new EmptyBorder(5, 10, 5, 10); 
         compoundBorder = new CompoundBorder(line, empty);
         // Sau đó vào textField chỉnh setBorder trong phần chỉnh code.
         // Theo dạng: txtUsername.setBoder(compoundBorder);
@@ -121,10 +121,11 @@ public final class FormLogin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(pnTopLayout.createSequentialGroup()
-                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(pnTopLayout.createSequentialGroup()
+                        .addGap(7, 7, 7)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel2)))
@@ -140,9 +141,7 @@ public final class FormLogin extends javax.swing.JFrame {
         btnLogin.setBackground(new java.awt.Color(0, 153, 255));
         btnLogin.setBorder(null);
         btnLogin.setForeground(new java.awt.Color(255, 255, 255));
-        btnLogin.setText("Login");
-        btnLogin.setFocusPainted(false);
-        btnLogin.setPaintBorderInsets(false);
+        btnLogin.setLabel("Đăng nhập");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
@@ -151,8 +150,8 @@ public final class FormLogin extends javax.swing.JFrame {
 
         btnCancel.setBackground(new java.awt.Color(255, 255, 255));
         btnCancel.setBorder(null);
-        btnCancel.setText("Cancel");
         btnCancel.setFocusPainted(false);
+        btnCancel.setLabel("Thoát");
         btnCancel.setPaintBorderInsets(false);
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,7 +177,7 @@ public final class FormLogin extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnBottomLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnSetting, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 180, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -217,6 +216,7 @@ public final class FormLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        
         Tools.readConfigFile();
         String username = txtUsername.getText().trim();
         String pass = new String(txtPassword.getPassword());
@@ -224,13 +224,18 @@ public final class FormLogin extends javax.swing.JFrame {
         
         Connection cn = Tools.getConn();
         if(cn == null) {
-            JOptionPane.showMessageDialog(this, "Can not connect "
+            JOptionPane.showMessageDialog(this, "Không thể đăng nhập"
                     + "to DB, check "
                     + "jdbc driver, and then check Config info");
             new FormConfig(this, true).setVisible(true);
             return;
         }
-        
+//        btnLogin.setBorder(new LineBorder(Color.RED, 3));
+//        try {
+//            Thread.sleep(4000);
+//        } catch (InterruptedException ex) {
+//            Logger.getLogger(FormLogin.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         try (
             PreparedStatement pst = cn.prepareStatement(sql);
         ) {

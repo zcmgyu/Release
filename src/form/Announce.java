@@ -12,13 +12,10 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
-import javax.swing.JOptionPane;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -30,18 +27,19 @@ import org.jdesktop.swingx.JXCollapsiblePane;
  *
  * @author zcmgyu
  */
-public final class PanelAnnounce extends javax.swing.JPanel {
+public class Announce extends javax.swing.JFrame {
 
     /**
-     * Creates new form AnnouncePanel
+     * Creates new form Announce
      */
-    public PanelAnnounce() {
+    public Announce() {
         initComponents();
         initTitle();
         initCompoundBorder();
         editSliptPane();
         initSwitchPane();
     }
+    
     CompoundBorder compoundBorder;
     CompoundBorder compoundBorder2;
 
@@ -59,7 +57,7 @@ public final class PanelAnnounce extends javax.swing.JPanel {
 
     }
     JXCollapsiblePane cp;
-
+    
     void initSwitchPane() {
         cp = new JXCollapsiblePane();
         cp.setLayout(new BorderLayout());
@@ -68,7 +66,7 @@ public final class PanelAnnounce extends javax.swing.JPanel {
         add("North", cp);
         btnSwitchToEditor.addActionListener(cp.getActionMap().get(JXCollapsiblePane.TOGGLE_ACTION));
     }
-
+    
     void editSliptPane() {
         BasicSplitPaneUI flatDividerSplitPaneUI = new BasicSplitPaneUI() {
             @Override
@@ -85,7 +83,7 @@ public final class PanelAnnounce extends javax.swing.JPanel {
         splitPane.setBorder(null);
         splitPane.setLastDividerLocation(600);
     }
-
+    
     // http://stackoverflow.com/questions/12799640/why-does-jsplitpane-add-a-border-to-my-components-and-how-do-i-stop-it
     
 
@@ -101,14 +99,10 @@ public final class PanelAnnounce extends javax.swing.JPanel {
                 dlm.addElement(am);
             }
             leftList.setModel(dlm);
-            if(selectedIndex >= 0) {
-                leftList.setSelectedIndex(selectedIndex);
-            }
         } catch (SQLException ex) {
             Logger.getLogger(PanelAnnounce.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -124,24 +118,29 @@ public final class PanelAnnounce extends javax.swing.JPanel {
         txtContent = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        TopHiddenSendButton = new org.jdesktop.swingx.JXButton();
+        jXButton1 = new org.jdesktop.swingx.JXButton();
         popupEditDel = new javax.swing.JPopupMenu();
         edit = new javax.swing.JMenuItem();
         delete = new javax.swing.JMenuItem();
         add = new javax.swing.JMenuItem();
-        TopShow = new javax.swing.JPanel();
-        splitPane = new javax.swing.JSplitPane();
-        scpLeft = new javax.swing.JScrollPane();
-        leftList = new javax.swing.JList<>();
-        scpRight = new javax.swing.JScrollPane();
-        RightContent = new javax.swing.JTextPane();
         Bottom = new javax.swing.JPanel();
         btnSwitchToEditor = new org.jdesktop.swingx.JXButton();
+        TopShow = new javax.swing.JPanel();
+        splitPane = new javax.swing.JSplitPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        RightContent = new javax.swing.JTextPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        leftList = new javax.swing.JList<>();
 
         TopHidden.setBackground(new java.awt.Color(255, 255, 255));
 
         txtTitle.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtTitle.setBorder(null);
+        txtTitle.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTitleActionPerformed(evt);
+            }
+        });
 
         jScrollPane3.setBorder(null);
 
@@ -155,15 +154,15 @@ public final class PanelAnnounce extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Nội dung thông báo");
 
-        TopHiddenSendButton.setBackground(new java.awt.Color(255, 255, 255));
-        TopHiddenSendButton.setBorder(null);
-        TopHiddenSendButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/send.png"))); // NOI18N
-        TopHiddenSendButton.setToolTipText("Gửi");
-        TopHiddenSendButton.setFocusPainted(false);
-        TopHiddenSendButton.setOpaque(false);
-        TopHiddenSendButton.addActionListener(new java.awt.event.ActionListener() {
+        jXButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jXButton1.setBorder(null);
+        jXButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/send.png"))); // NOI18N
+        jXButton1.setToolTipText("Gửi");
+        jXButton1.setFocusPainted(false);
+        jXButton1.setOpaque(false);
+        jXButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TopHiddenSendButtonActionPerformed(evt);
+                jXButton1ActionPerformed(evt);
             }
         });
 
@@ -183,7 +182,7 @@ public final class PanelAnnounce extends javax.swing.JPanel {
                         .addGap(0, 573, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TopHiddenLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(TopHiddenSendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jXButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         TopHiddenLayout.setVerticalGroup(
@@ -198,7 +197,7 @@ public final class PanelAnnounce extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(TopHiddenSendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jXButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -230,62 +229,7 @@ public final class PanelAnnounce extends javax.swing.JPanel {
         });
         popupEditDel.add(add);
 
-        setBackground(new java.awt.Color(255, 255, 255));
-        setLayout(new java.awt.BorderLayout());
-
-        TopShow.setBackground(new java.awt.Color(255, 255, 255));
-
-        splitPane.setBorder(null);
-        splitPane.setOpaque(false);
-        splitPane.setPreferredSize(new java.awt.Dimension(200, 23));
-
-        scpLeft.setBorder(null);
-        scpLeft.setName(""); // NOI18N
-
-        leftList.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        leftList.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                leftListMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                leftListMouseReleased(evt);
-            }
-        });
-        leftList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
-            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                leftListValueChanged(evt);
-            }
-        });
-        scpLeft.setViewportView(leftList);
-
-        splitPane.setLeftComponent(scpLeft);
-
-        scpRight.setBorder(null);
-
-        RightContent.setEditable(false);
-        RightContent.setBorder(null);
-        scpRight.setViewportView(RightContent);
-
-        splitPane.setRightComponent(scpRight);
-
-        javax.swing.GroupLayout TopShowLayout = new javax.swing.GroupLayout(TopShow);
-        TopShow.setLayout(TopShowLayout);
-        TopShowLayout.setHorizontalGroup(
-            TopShowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TopShowLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        TopShowLayout.setVerticalGroup(
-            TopShowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(TopShowLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        add(TopShow, java.awt.BorderLayout.CENTER);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         Bottom.setPreferredSize(new java.awt.Dimension(731, 50));
 
@@ -309,104 +253,65 @@ public final class PanelAnnounce extends javax.swing.JPanel {
             .addComponent(btnSwitchToEditor, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
         );
 
-        add(Bottom, java.awt.BorderLayout.PAGE_END);
-    }// </editor-fold>//GEN-END:initComponents
+        getContentPane().add(Bottom, java.awt.BorderLayout.PAGE_END);
 
-    private void leftListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_leftListValueChanged
-        AnnounceModal am = leftList.getSelectedValue();
-        if(am == null) {
-            return;
-        }
-        RightContent.setText(am.getContent());
-    }//GEN-LAST:event_leftListValueChanged
+        TopShow.setBackground(new java.awt.Color(255, 255, 255));
 
-    private void TopHiddenSendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TopHiddenSendButtonActionPerformed
-        
-        String sql = "INSERT INTO tblAnnounce\n"
-                   + "VALUES (N'" + txtTitle.getText().trim()+ "', N'" + txtContent.getText() + "');";
-        DefaultListModel<AnnounceModal> dlm = new DefaultListModel<>();
-        try (Connection cn = Tools.getConn();
-                Statement st = cn.createStatement();
-            ) 
-            {
-                int update = st.executeUpdate(sql);
-                if (update > 0) {
-                    JOptionPane.showMessageDialog(this, "Đã thêm 1 thông báo mới");
-                    txtTitle.setText("");
-                    txtContent.setText("");
-                    ShareData.getInstance().getPa().initTitle();
-                }
-                
-        } catch (SQLException ex) {
-            Logger.getLogger(PanelAnnounce.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_TopHiddenSendButtonActionPerformed
+        splitPane.setBorder(null);
+        splitPane.setOpaque(false);
+        splitPane.setPreferredSize(new java.awt.Dimension(200, 23));
 
-    public void check(MouseEvent evt) {
-        if (evt.isPopupTrigger()) { //if the event shows the menu
-//            leftList.setSelectedIndex(leftList.locationToIndex(evt.getPoint())); //select the item
-            popupEditDel.show(leftList, evt.getX(), evt.getY()); //and show the menu
-        }
-    }
-    // Dùng 2 cái vì gì đó trên Stack bảo vậy
-    private void leftListMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_leftListMousePressed
-        // Để lấy thông tin giá trị vừa kick chuột phải
-        amSend = leftList.getSelectedValue();
-        check(evt);
-    }//GEN-LAST:event_leftListMousePressed
-    AnnounceModal amSend;
-    ArrayList<AnnounceModal> multiAM;
-    
-    private void leftListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_leftListMouseReleased
-        amSend = leftList.getSelectedValue();
-        multiAM = (ArrayList<AnnounceModal>) leftList.getSelectedValuesList();
-        check(evt);
-    }//GEN-LAST:event_leftListMouseReleased
+        jScrollPane2.setBorder(null);
 
-    int selectedIndex = -1;
-    private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
-        selectedIndex = leftList.getSelectedIndex();
-        EditPopup ep = new EditPopup(null, true, amSend);
-        ep.setLocationRelativeTo(this);
-        ep.setVisible(true);
-    }//GEN-LAST:event_editActionPerformed
+        RightContent.setEditable(false);
+        RightContent.setBorder(null);
+        jScrollPane2.setViewportView(RightContent);
 
-    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-        List<AnnounceModal> list = leftList.getSelectedValuesList();
-        delete(list);
-        ShareData.getInstance().getPa().initTitle();
+        splitPane.setRightComponent(jScrollPane2);
 
-    }//GEN-LAST:event_deleteActionPerformed
+        jScrollPane1.setBorder(null);
+        jScrollPane1.setName(""); // NOI18N
 
-    boolean delete(List<AnnounceModal> list) {
-        StringBuilder sql = new StringBuilder("DELETE tblAnnounce WHERE [ID] in (");
-        for (AnnounceModal am : list) {
-            sql.append(am.getID()).append(",");
-        }
-        sql.deleteCharAt(sql.length() - 1);
-        sql.append(")");
-        try (
-            Connection cn = Tools.getConn();
-            Statement st = cn.createStatement();            
-        ) {
-            int rows = st.executeUpdate(sql.toString());
-            if(rows > 0) {
-                
-                return  true;
-            } else {
-                return false;
+        leftList.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        leftList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                leftListMousePressed(evt);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(PanelAnnounce.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-    }
-    
-    
-    private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
-//        btnSwitchToEditorActionPerformed(evt);
-    }//GEN-LAST:event_addActionPerformed
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                leftListMouseReleased(evt);
+            }
+        });
+        leftList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                leftListValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(leftList);
 
+        splitPane.setLeftComponent(jScrollPane1);
+
+        javax.swing.GroupLayout TopShowLayout = new javax.swing.GroupLayout(TopShow);
+        TopShow.setLayout(TopShowLayout);
+        TopShowLayout.setHorizontalGroup(
+            TopShowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TopShowLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 711, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        TopShowLayout.setVerticalGroup(
+            TopShowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TopShowLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        getContentPane().add(TopShow, java.awt.BorderLayout.CENTER);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+    // Dùng Collapanse
     private void btnSwitchToEditorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSwitchToEditorActionPerformed
         if (!cp.isCollapsed()) {
             TopHidden.setPreferredSize(TopShow.getSize());
@@ -414,15 +319,90 @@ public final class PanelAnnounce extends javax.swing.JPanel {
         } else {
             btnSwitchToEditor.setText("Đăng thông báo");
         }
-
     }//GEN-LAST:event_btnSwitchToEditorActionPerformed
+    public void check(MouseEvent evt) {
+        if (evt.isPopupTrigger()) { //if the event shows the menu
+            leftList.setSelectedIndex(leftList.locationToIndex(evt.getPoint())); //select the item
+            popupEditDel.show(leftList, evt.getX(), evt.getY()); //and show the menu
+        }
+    }
+    private void leftListMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_leftListMousePressed
+        check(evt);
+    }//GEN-LAST:event_leftListMousePressed
+    
+    // Để lấy kết quả gửi qua thằng Edit
+    AnnounceModal amSend;
+    private void leftListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_leftListMouseReleased
+        amSend = leftList.getSelectedValue();
+        check(evt);
+    }//GEN-LAST:event_leftListMouseReleased
 
+    private void leftListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_leftListValueChanged
+        AnnounceModal am = leftList.getSelectedValue();
+        RightContent.setText(am.getContent());
+    }//GEN-LAST:event_leftListValueChanged
+
+    private void txtTitleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTitleActionPerformed
+
+    }//GEN-LAST:event_txtTitleActionPerformed
+
+    private void jXButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXButton1ActionPerformed
+
+    }//GEN-LAST:event_jXButton1ActionPerformed
+
+    private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
+        EditPopup ep = new EditPopup(null, true, amSend);
+        ep.setLocationRelativeTo(this);
+        ep.setVisible(true);
+    }//GEN-LAST:event_editActionPerformed
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deleteActionPerformed
+
+    private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_addActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Announce.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Announce.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Announce.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Announce.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Announce().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Bottom;
     private javax.swing.JTextPane RightContent;
     private javax.swing.JPanel TopHidden;
-    private org.jdesktop.swingx.JXButton TopHiddenSendButton;
     private javax.swing.JPanel TopShow;
     private javax.swing.JMenuItem add;
     private org.jdesktop.swingx.JXButton btnSwitchToEditor;
@@ -430,11 +410,12 @@ public final class PanelAnnounce extends javax.swing.JPanel {
     private javax.swing.JMenuItem edit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private org.jdesktop.swingx.JXButton jXButton1;
     private javax.swing.JList<AnnounceModal> leftList;
     private javax.swing.JPopupMenu popupEditDel;
-    private javax.swing.JScrollPane scpLeft;
-    private javax.swing.JScrollPane scpRight;
     private javax.swing.JSplitPane splitPane;
     private javax.swing.JTextPane txtContent;
     private javax.swing.JTextField txtTitle;

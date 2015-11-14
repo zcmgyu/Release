@@ -9,14 +9,12 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import org.jdesktop.swingx.JXButton;
 import org.jdesktop.swingx.JXPanel;
 
@@ -35,18 +33,17 @@ public final class PanelRoom extends javax.swing.JPanel {
         initfloorModal();
         initStatus();
     }
-    
+
     // Khởi tạo danh sách phòng
 //    JXButton btnRoom;
-    
     void initListRoom(String sql) {
         //        String sql = "SELECT COUNT(ID) AS RoomCount FROM tblRoom";
         if (sql == null) {
             sql = "SELECT * FROM tblRoom";
         }
-            // Xoa truoc khi khoi tao
-            pnListButton.removeAll();
-                
+        // Xoa truoc khi khoi tao
+        pnListButton.removeAll();
+
         try (Connection cn = Tools.getConn();
                 Statement st = cn.createStatement();
                 ResultSet rs = st.executeQuery(sql)) {
@@ -54,37 +51,51 @@ public final class PanelRoom extends javax.swing.JPanel {
                 // tạo 1 JPanel    
                 JXPanel pnRoom = new JXPanel();
                 pnRoom.setPreferredSize(new Dimension(80, 80));
-                
+
                 pnListButton.add(pnRoom);
                 pnListButton.setPreferredSize(new Dimension(pnBottom.getWidth(), 1000));
-                // 
-                JXButton btnRoom = new JXButton(Integer.toString(rs.getInt(2)));
-                btnRoom.setPreferredSize(new Dimension(80, 80));
-                // Kiểm tra tình trạng của phòng
+                JXButton btnRoom = new JXButton();
                 
+                int roomID = rs.getInt(1);
+                String roomName = rs.getString(2);
+                btnRoom.addActionListener((ActionEvent e) -> {
+                    
+                        // Lay gia tri truoc khi tao ra Dialog Room Detail
+                        System.out.println("ROOM NAME: " + btnRoom.getText());
+
+                        //                    ShareData.getInstance().setRoomID(Integer.parseInt(btnRoom.getText()));
+                        ShareData.getInstance().setRoomID(roomID);
+                        ShareData.getInstance().setRoomName(roomName);
+
+
+                        DialogRoomDetail drd = new DialogRoomDetail(null, true);
+                        drd.setLocationRelativeTo(this);
+                        drd.setVisible(true);
+                });
+
+// 
+                btnRoom.setText(Integer.toString(rs.getInt(2)));
+                btnRoom.setPreferredSize(new Dimension(80, 80));
+                
+
+                pnRoom.setLayout(new BorderLayout());
+                pnRoom.add(btnRoom, BorderLayout.CENTER);
+
+                
+                
+                
+                // Kiểm tra tình trạng của phòng
+
                 if (rs.getBoolean(6)) {
                     btnRoom.setBackground(Color.LIGHT_GRAY);
                 } else {
                     btnRoom.setBackground(new Color(255, 102, 102));
                 }
-
-                pnRoom.setLayout(new BorderLayout());
-                pnRoom.add(btnRoom, BorderLayout.CENTER);
-                
-                btnRoom.addActionListener((ActionEvent e) -> {
-                    DialogRoomDetail drd = new DialogRoomDetail(null, true);
-                    drd.setLocationRelativeTo(this);
-                    drd.setVisible(true);
-                    
-                    System.out.println("ROOM NAME: " + btnRoom.getText());
-                });
             }
         } catch (SQLException ex) {
             Logger.getLogger(PanelRoom.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
+
 //        for (int i = 0; i < 100; i++) {
 //            JXPanel pnRoom = new JXPanel();
 //            pnRoom.setBackground(Color.BLACK);
@@ -117,7 +128,7 @@ public final class PanelRoom extends javax.swing.JPanel {
             Logger.getLogger(PanelRoom.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     // Khởi tạo Tầng trong Combobox
     void initStatus() {
         cbbStatus.removeAllItems();
@@ -131,15 +142,14 @@ public final class PanelRoom extends javax.swing.JPanel {
                 String status = rs.getString(2);
                 StatusModal sm = new StatusModal(id, status);
                 cbbStatus.addItem(sm);
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(PanelRoom.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    // Bắt sự kiện nhấn vào một nút
-    
 
+    // Bắt sự kiện nhấn vào một nút
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -252,12 +262,13 @@ public final class PanelRoom extends javax.swing.JPanel {
         add(pnBottom, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
     String sql;
+
     void resetSQL() {
         sql = "SELECT * FROM tblRoom WHERE 1 = 1";
     }
-    
+
     void filter() {
-        if(cbbFloor.getSelectedIndex() > 0) {
+        if (cbbFloor.getSelectedIndex() > 0) {
             System.out.println("CBB FLOOR: " + cbbFloor.getSelectedIndex());
             FloorModal fm = (FloorModal) cbbFloor.getSelectedItem();
             sql += " AND FloorID = " + fm.getId();
@@ -267,7 +278,7 @@ public final class PanelRoom extends javax.swing.JPanel {
             initListRoom(sql);
             this.updateUI();
         }
-        if(cbbStatus.getSelectedIndex() > 0) {
+        if (cbbStatus.getSelectedIndex() > 0) {
             System.out.println("CBB STATUS: " + cbbStatus.getSelectedIndex());
             StatusModal sm = (StatusModal) cbbStatus.getSelectedItem();
             sql += " AND StatusID = " + sm.getId();
@@ -280,14 +291,13 @@ public final class PanelRoom extends javax.swing.JPanel {
         initListRoom(sql);
         resetSQL();
     }
-    
-    
-    
+
+
     private void cbbFloorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbFloorActionPerformed
         filter();
-        
+
     }//GEN-LAST:event_cbbFloorActionPerformed
-    
+
     private void cbbStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbStatusActionPerformed
         filter();
     }//GEN-LAST:event_cbbStatusActionPerformed
