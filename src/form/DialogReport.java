@@ -5,6 +5,8 @@
  */
 package form;
 
+import java.util.Locale;
+
 /**
  *
  * @author zcmgyu
@@ -28,21 +30,118 @@ public class DialogReport extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jXMonthView1 = new org.jdesktop.swingx.JXMonthView();
+        jLabel1 = new javax.swing.JLabel();
+        txtTitle = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        TopHiddenSendButton = new org.jdesktop.swingx.JXButton();
+        jLabel3 = new javax.swing.JLabel();
+        cal = new com.toedter.calendar.JDateChooser();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel1.setText("Báo hỏng");
+
+        txtTitle.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        txtTitle.setBorder(null);
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel2.setText("Miêu tả chi tiết hỏng hóc");
+
+        TopHiddenSendButton.setBackground(new java.awt.Color(255, 255, 255));
+        TopHiddenSendButton.setBorder(null);
+        TopHiddenSendButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/send.png"))); // NOI18N
+        TopHiddenSendButton.setToolTipText("Gửi");
+        TopHiddenSendButton.setFocusPainted(false);
+        TopHiddenSendButton.setOpaque(false);
+        TopHiddenSendButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TopHiddenSendButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("Ngày xảy ra hỏng hóc");
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jTextArea1.setRows(5);
+        jTextArea1.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(141, 141, 141))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTitle)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(TopHiddenSendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cal, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(13, 13, 13)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(TopHiddenSendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void TopHiddenSendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TopHiddenSendButtonActionPerformed
+
+//        String sql = "INSERT INTO tblAnnounce\n"
+//        + "VALUES (N'" + txtTitle.getText().trim()+ "', N'" + txtContent.getText() + "');";
+//        DefaultListModel<AnnounceModal> dlm = new DefaultListModel<>();
+//        try (Connection cn = Tools.getConn();
+//            Statement st = cn.createStatement();
+//        )
+//        {
+//            int update = st.executeUpdate(sql);
+//            if (update > 0) {
+//                JOptionPane.showMessageDialog(this, "Đã thêm 1 thông báo mới");
+//                txtTitle.setText("");
+//                txtContent.setText("");
+//                ShareData.getInstance().getPa().initTitle();
+//            }
+//
+//        } catch (SQLException ex) {
+//            Logger.getLogger(PanelAnnounce.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+    }//GEN-LAST:event_TopHiddenSendButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -88,5 +187,14 @@ public class DialogReport extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private org.jdesktop.swingx.JXButton TopHiddenSendButton;
+    private com.toedter.calendar.JDateChooser cal;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
+    private org.jdesktop.swingx.JXMonthView jXMonthView1;
+    private javax.swing.JTextField txtTitle;
     // End of variables declaration//GEN-END:variables
 }
