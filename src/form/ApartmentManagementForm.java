@@ -12,7 +12,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.plaf.ColorUIResource;
 import org.jdesktop.swingx.JXCollapsiblePane;
 
 /**
@@ -190,7 +189,7 @@ public final class ApartmentManagementForm extends javax.swing.JFrame {
 
         btnAnnounce.setBackground(new java.awt.Color(255, 255, 255));
         btnAnnounce.setBorder(null);
-        btnAnnounce.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/clipboard-text.png"))); // NOI18N
+        btnAnnounce.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/bulletin-board.png"))); // NOI18N
         GBtnAnnounce.add(btnAnnounce);
         btnAnnounce.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/image/clipboard-text-white.png"))); // NOI18N
         btnAnnounce.setFocusPainted(false);
@@ -218,7 +217,8 @@ public final class ApartmentManagementForm extends javax.swing.JFrame {
 
         btnMail.setBackground(new java.awt.Color(255, 255, 255));
         btnMail.setBorder(null);
-        btnMail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/email.png"))); // NOI18N
+        btnMail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/calendar-remove.png"))); // NOI18N
+        btnMail.setToolTipText("");
         GBtnEmail.add(btnMail);
         btnMail.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/image/email(1).png"))); // NOI18N
         btnMail.setFocusPainted(false);
@@ -332,7 +332,7 @@ public final class ApartmentManagementForm extends javax.swing.JFrame {
 
         btnMail2.setBackground(new java.awt.Color(255, 255, 255));
         btnMail2.setBorder(null);
-        btnMail2.setText("E-mail");
+        btnMail2.setText("Quản lí báo hỏng");
         btnMail2.setBorderPainted(false);
         btnMail2.setFocusPainted(false);
         btnMail2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
