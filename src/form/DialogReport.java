@@ -5,22 +5,49 @@
  */
 package form;
 
-import java.util.Locale;
+import java.awt.Color;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
 
 /**
  *
  * @author zcmgyu
  */
-public class DialogReport extends javax.swing.JDialog {
+public final class EditPopup extends javax.swing.JDialog {
 
     /**
-     * Creates new form NewJDialog
+     * Creates new form
+     * @param parent
+     * @param modal
      */
-    public DialogReport(java.awt.Frame parent, boolean modal) {
+    AnnounceModal am;
+    ApartmentManagementForm parent;
+    public EditPopup(java.awt.Frame parent, boolean modal, AnnounceModal am) {
         super(parent, modal);
         initComponents();
+        this.parent = (ApartmentManagementForm) parent;
+        this.am = am;
+        Border line = BorderFactory.createLineBorder(Color.lightGray, 2);
+        Border empty = new EmptyBorder(2, 10, 2, 10); 
+        CompoundBorder cb = new CompoundBorder(line, empty);
+//        CompoundBorder cb = new CompoundBorder();
+//        DesignTools.comboundBorderLF(cb);
+        txtTitle.setBorder(cb);
+        txtContent.setBorder(cb);
+        txtTitle.setText(am.getTitle());
+        txtContent.setText(am.getContent());
     }
-
+    
+        
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,46 +57,38 @@ public class DialogReport extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jXMonthView1 = new org.jdesktop.swingx.JXMonthView();
-        jLabel1 = new javax.swing.JLabel();
         txtTitle = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        TopHiddenSendButton = new org.jdesktop.swingx.JXButton();
-        jLabel3 = new javax.swing.JLabel();
-        cal = new com.toedter.calendar.JDateChooser();
+        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtContent = new javax.swing.JTextPane();
+        jLabel2 = new javax.swing.JLabel();
+        jXButton1 = new org.jdesktop.swingx.JXButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Chỉnh sửa thông báo");
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jLabel1.setText("Báo hỏng");
-
-        txtTitle.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtTitle.setBorder(null);
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jLabel2.setText("Miêu tả chi tiết hỏng hóc");
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel1.setText("Tiêu đề");
 
-        TopHiddenSendButton.setBackground(new java.awt.Color(255, 255, 255));
-        TopHiddenSendButton.setBorder(null);
-        TopHiddenSendButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/send.png"))); // NOI18N
-        TopHiddenSendButton.setToolTipText("Gửi");
-        TopHiddenSendButton.setFocusPainted(false);
-        TopHiddenSendButton.setOpaque(false);
-        TopHiddenSendButton.addActionListener(new java.awt.event.ActionListener() {
+        jScrollPane1.setBorder(null);
+
+        txtContent.setBorder(null);
+        jScrollPane1.setViewportView(txtContent);
+
+        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel2.setText("Nội dung thông báo");
+
+        jXButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jXButton1.setBorder(null);
+        jXButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/send.png"))); // NOI18N
+        jXButton1.setOpaque(false);
+        jXButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TopHiddenSendButtonActionPerformed(evt);
+                jXButton1ActionPerformed(evt);
             }
         });
-
-        jLabel3.setText("Ngày xảy ra hỏng hóc");
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
-        jTextArea1.setRows(5);
-        jTextArea1.setWrapStyleWord(true);
-        jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -78,123 +97,69 @@ public class DialogReport extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(141, 141, 141))
+                    .addComponent(txtTitle, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTitle)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(TopHiddenSendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cal, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
                             .addComponent(jLabel2))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGap(0, 242, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jXButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
-                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(TopHiddenSendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jXButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TopHiddenSendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TopHiddenSendButtonActionPerformed
-
-//        String sql = "INSERT INTO tblAnnounce\n"
-//        + "VALUES (N'" + txtTitle.getText().trim()+ "', N'" + txtContent.getText() + "');";
-//        DefaultListModel<AnnounceModal> dlm = new DefaultListModel<>();
-//        try (Connection cn = Tools.getConn();
-//            Statement st = cn.createStatement();
-//        )
-//        {
-//            int update = st.executeUpdate(sql);
-//            if (update > 0) {
-//                JOptionPane.showMessageDialog(this, "Đã thêm 1 thông báo mới");
-//                txtTitle.setText("");
-//                txtContent.setText("");
-//                ShareData.getInstance().getPa().initTitle();
-//            }
-//
-//        } catch (SQLException ex) {
-//            Logger.getLogger(PanelAnnounce.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-    }//GEN-LAST:event_TopHiddenSendButtonActionPerformed
+    private void jXButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXButton1ActionPerformed
+        String title = txtTitle.getText().trim();
+        String content = txtContent.getText();
+        String sql = "UPDATE tblAnnounce\n" +
+                    "SET [Title] = N'" + title + "', [Content] = N'" + content + "'\n" +
+                    "WHERE [ID] = " + am.getID();
+        try (Connection cn = Tools.getConn();
+                Statement st = cn.createStatement();
+                ) {
+            int update = st.executeUpdate(sql);
+            System.out.println("SQL: " + sql);
+            System.out.println("Status: " + update);
+            if(update > 0) {
+                JOptionPane.showMessageDialog(this, "Update successful");
+                ShareData.getInstance().getPa().initTitle();
+                this.dispose();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(PanelAnnounce.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jXButton1ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DialogReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DialogReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DialogReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DialogReport.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DialogReport dialog = new DialogReport(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private org.jdesktop.swingx.JXButton TopHiddenSendButton;
-    private com.toedter.calendar.JDateChooser cal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
-    private org.jdesktop.swingx.JXMonthView jXMonthView1;
+    private org.jdesktop.swingx.JXButton jXButton1;
+    private javax.swing.JTextPane txtContent;
     private javax.swing.JTextField txtTitle;
     // End of variables declaration//GEN-END:variables
 }
