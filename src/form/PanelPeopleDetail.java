@@ -110,7 +110,7 @@ public final class PanelPeopleDetail extends javax.swing.JPanel {
                 Vector vRow = new Vector();
                 for (int i = 1; i <= rsmd.getColumnCount(); i++) {
                     if(i == 4) {
-                        vRow.add((rs.getInt(4)==1)?"Nam":"Nữ");
+                        vRow.add((rs.getInt(4) == 1)?"Nam":"Nữ");
                     } 
                     else{
                         vRow.add(rs.getString(i));
@@ -205,9 +205,8 @@ public final class PanelPeopleDetail extends javax.swing.JPanel {
                 .addGroup(pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnDeltail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeltail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -262,9 +261,9 @@ public final class PanelPeopleDetail extends javax.swing.JPanel {
             DialogEditHuman replaceHumanForm =  new DialogEditHuman(null, true, this,vRow);
             replaceHumanForm.setLocationRelativeTo(this);
             replaceHumanForm.setVisible(true);
-            ShareData.getInstance().getPpd().initCellAlign();
+//            ShareData.getInstance().getPpd().initCellAlign();
         } else {
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn người để chỉnh sửa", "Lỗi",JOptionPane.ERROR_MESSAGE,new javax.swing.ImageIcon(getClass().getResource("/image/error.png")));
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn người để chỉnh sửa", "Lỗi", JOptionPane.ERROR_MESSAGE,new javax.swing.ImageIcon(getClass().getResource("/image/error.png")));
         }
 
     }//GEN-LAST:event_btnEditActionPerformed
