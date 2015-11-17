@@ -135,7 +135,7 @@ public final class PanelPeopleDetail extends javax.swing.JPanel {
 
         pnlFooter = new javax.swing.JPanel();
         btnAdd = new org.jdesktop.swingx.JXButton();
-        btnReplace = new org.jdesktop.swingx.JXButton();
+        btnEdit = new org.jdesktop.swingx.JXButton();
         btnDelete = new org.jdesktop.swingx.JXButton();
         btnDeltail = new org.jdesktop.swingx.JXButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -143,30 +143,40 @@ public final class PanelPeopleDetail extends javax.swing.JPanel {
 
         pnlFooter.setBackground(new java.awt.Color(153, 153, 255));
 
-        btnAdd.setText(" Thêm ");
+        btnAdd.setBackground(new java.awt.Color(255, 255, 255));
+        btnAdd.setBorder(null);
+        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/plus_1.png"))); // NOI18N
+        btnAdd.setOpaque(false);
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
             }
         });
 
-        btnReplace.setText("  Sửa  ");
-        btnReplace.setMaximumSize(new java.awt.Dimension(75, 36));
-        btnReplace.setMinimumSize(new java.awt.Dimension(75, 36));
-        btnReplace.addActionListener(new java.awt.event.ActionListener() {
+        btnEdit.setBackground(new java.awt.Color(255, 255, 255));
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/pencil.png"))); // NOI18N
+        btnEdit.setMaximumSize(new java.awt.Dimension(75, 36));
+        btnEdit.setMinimumSize(new java.awt.Dimension(75, 36));
+        btnEdit.setOpaque(false);
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReplaceActionPerformed(evt);
+                btnEditActionPerformed(evt);
             }
         });
 
-        btnDelete.setText("  Xóa  ");
+        btnDelete.setBackground(new java.awt.Color(255, 255, 255));
+        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/close.png"))); // NOI18N
+        btnDelete.setOpaque(false);
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteActionPerformed(evt);
             }
         });
 
-        btnDeltail.setText("Chi tiết");
+        btnDeltail.setBackground(new java.awt.Color(255, 255, 255));
+        btnDeltail.setBorder(null);
+        btnDeltail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/launch.png"))); // NOI18N
+        btnDeltail.setOpaque(false);
         btnDeltail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeltailActionPerformed(evt);
@@ -179,28 +189,25 @@ public final class PanelPeopleDetail extends javax.swing.JPanel {
             pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFooterLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnReplace, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(4, 4, 4)
-                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDeltail, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDeltail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlFooterLayout.setVerticalGroup(
             pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFooterLayout.createSequentialGroup()
-                .addGroup(pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnlFooterLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnDeltail, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnReplace, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(pnlFooterLayout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(pnlFooterLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(pnlFooterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDeltail, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -228,7 +235,7 @@ public final class PanelPeopleDetail extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 632, Short.MAX_VALUE)
                 .addContainerGap())
             .addComponent(pnlFooter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -236,33 +243,31 @@ public final class PanelPeopleDetail extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlFooter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        
         DialogAddHuman abc = new DialogAddHuman(null, true);
         abc.setLocationRelativeTo(this);
         abc.setVisible(true);
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private void btnReplaceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReplaceActionPerformed
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         int rowId = tblPeopleDetail.getSelectedRow();
-        if(rowId>0){
+        if(rowId > 0){
             Vector vRow = (Vector) vData.get(rowId);
-            ReplaceHumanForm replaceHumanForm =  new ReplaceHumanForm(null, true, this,vRow);
+            DialogEditHuman replaceHumanForm =  new DialogEditHuman(null, true, this,vRow);
             replaceHumanForm.setLocationRelativeTo(this);
             replaceHumanForm.setVisible(true);
             ShareData.getInstance().getPpd().initCellAlign();
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(null, "Vui lòng chọn người để chỉnh sửa", "Lỗi",JOptionPane.ERROR_MESSAGE,new javax.swing.ImageIcon(getClass().getResource("/image/error.png")));
         }
 
-    }//GEN-LAST:event_btnReplaceActionPerformed
+    }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int rowId = tblPeopleDetail.getSelectedRow();
@@ -277,7 +282,7 @@ public final class PanelPeopleDetail extends javax.swing.JPanel {
                                 System.out.println("VaData: " + vData.get(rowId));
 
                 Vector vRow = (Vector) vData.get(rowId);
-                String sql = "delete from tblHuman where id="+Integer.parseInt(vRow.get(0).toString());
+                String sql = "DELETE FROM tblHuman WHERE id = " + Integer.parseInt(vRow.get(0).toString());
                 System.out.println(sql);
                 try (Connection cn = Tools.getConn();
                         PreparedStatement pst = cn.prepareStatement(sql);) {
@@ -318,7 +323,7 @@ public final class PanelPeopleDetail extends javax.swing.JPanel {
     private org.jdesktop.swingx.JXButton btnAdd;
     private org.jdesktop.swingx.JXButton btnDelete;
     private org.jdesktop.swingx.JXButton btnDeltail;
-    private org.jdesktop.swingx.JXButton btnReplace;
+    private org.jdesktop.swingx.JXButton btnEdit;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel pnlFooter;
     private org.jdesktop.swingx.JXTable tblPeopleDetail;
