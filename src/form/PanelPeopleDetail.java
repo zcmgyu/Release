@@ -16,6 +16,7 @@ import java.sql.Statement;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -37,6 +38,7 @@ public final class PanelPeopleDetail extends javax.swing.JPanel {
      */
     Vector vColumn;
     Vector vData;
+
     public PanelPeopleDetail() {
         initComponents();
         initPeopleDetail(null);
@@ -47,6 +49,7 @@ public final class PanelPeopleDetail extends javax.swing.JPanel {
         // Chỉnh màu nền của table
         // jScrollPane1.getViewport().setBackground(Color.WHITE);
     }
+
     void initCellAlign() {
         DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
         rightRenderer.setHorizontalAlignment(SwingConstants.CENTER);
@@ -58,6 +61,7 @@ public final class PanelPeopleDetail extends javax.swing.JPanel {
         tblPeopleDetail.getColumnModel().getColumn(9).setCellRenderer(rightRenderer);
         tblPeopleDetail.getColumnModel().getColumn(10).setCellRenderer(rightRenderer);
     }
+
     private static class HeaderRenderer implements TableCellRenderer {
 
         DefaultTableCellRenderer renderer;
@@ -109,10 +113,9 @@ public final class PanelPeopleDetail extends javax.swing.JPanel {
             while (rs.next()) {
                 Vector vRow = new Vector();
                 for (int i = 1; i <= rsmd.getColumnCount(); i++) {
-                    if(i == 4) {
-                        vRow.add((rs.getInt(4) == 1)?"Nam":"Nữ");
-                    } 
-                    else{
+                    if (i == 4) {
+                        vRow.add((rs.getInt(4) == 1) ? "Nam" : "Nữ");
+                    } else {
                         vRow.add(rs.getString(i));
                     }
                 }
@@ -226,6 +229,11 @@ public final class PanelPeopleDetail extends javax.swing.JPanel {
         ));
         tblPeopleDetail.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN);
         tblPeopleDetail.setEditable(false);
+        tblPeopleDetail.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPeopleDetailMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblPeopleDetail);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -256,66 +264,76 @@ public final class PanelPeopleDetail extends javax.swing.JPanel {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         int rowId = tblPeopleDetail.getSelectedRow();
-        if(rowId > 0){
-            Vector vRow = (Vector) vData.get(rowId);
-            DialogEditHuman replaceHumanForm =  new DialogEditHuman(null, true, this,vRow);
+        if (rowId > 0) {
+            DialogEditHuman replaceHumanForm = new DialogEditHuman(null, true);
             replaceHumanForm.setLocationRelativeTo(this);
             replaceHumanForm.setVisible(true);
-//            ShareData.getInstance().getPpd().initCellAlign();
         } else {
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn người để chỉnh sửa", "Lỗi", JOptionPane.ERROR_MESSAGE,new javax.swing.ImageIcon(getClass().getResource("/image/error.png")));
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn người để chỉnh sửa", "Lỗi", JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/image/error.png")));
         }
 
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int rowId = tblPeopleDetail.getSelectedRow();
-        System.out.println("ROWID: " + rowId);
-        if(rowId>0){
-            int response = JOptionPane.showConfirmDialog(null, "Do you want to delete?", "Confirm",JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-            if (response == JOptionPane.NO_OPTION) {
-                
-            } else if (response == JOptionPane.YES_OPTION) {
-                System.out.println("LONG");
-                System.out.println("VData: " + vData);
-                                System.out.println("VaData: " + vData.get(rowId));
-
-                Vector vRow = (Vector) vData.get(rowId);
-                String sql = "DELETE FROM tblHuman WHERE id = " + Integer.parseInt(vRow.get(0).toString());
-                System.out.println(sql);
-                try (Connection cn = Tools.getConn();
-                        PreparedStatement pst = cn.prepareStatement(sql);) {
-                    pst.executeUpdate();
-                    JOptionPane.showMessageDialog(this, "Delete successful");
-                    ShareData.getInstance().getPpd().initPeopleDetail(null);
-                    ShareData.getInstance().getPpd().initWidthTable();
-                    ShareData.getInstance().getPpd().initCellAlign();
-                    //
-                    
-                } catch (SQLException ex) {
-                    Logger.getLogger(ApartmentManagementForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else if (response == JOptionPane.CLOSED_OPTION) {
-                System.out.println("JOptionPane closed");
+        if (rowId > 0) {
+            int response = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn xóa người này",
+                    "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+                    new ImageIcon(getClass().getResource("/image/help.png")));
+            switch (response) {
+                case JOptionPane.NO_OPTION:
+                    break;
+                case JOptionPane.YES_OPTION:
+//                    System.out.println("LONG");
+//                    System.out.println("VData: " + vData);
+//                    System.out.println("VaData: " + vData.get(rowId));
+//                    Vector vRow = (Vector) vData.get(rowId);
+                    String sql = "DELETE FROM tblHuman WHERE id = " + ShareData.getInstance().getCurrentHumanID();
+                    System.out.println(sql);
+                    try (Connection cn = Tools.getConn();
+                            PreparedStatement pst = cn.prepareStatement(sql);) {
+                        pst.executeUpdate();
+                        JOptionPane.showMessageDialog(this, "Xóa thành công");
+                        ShareData.getInstance().getPpd().initPeopleDetail(null);
+                        ShareData.getInstance().getPpd().initWidthTable();
+                        ShareData.getInstance().getPpd().initCellAlign();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(ApartmentManagementForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    break;
+                case JOptionPane.CLOSED_OPTION:
+                    System.out.println("JOptionPane closed");
+                    break;
+                default:
+                    break;
             }
-        }
-        else {
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn người để xóa", "Lỗi",JOptionPane.ERROR_MESSAGE,new javax.swing.ImageIcon(getClass().getResource("/image/alert.png")));
+        } else {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn người để xóa", "Lỗi",
+                    JOptionPane.ERROR_MESSAGE, new ImageIcon(getClass().getResource("/image/alert.png")));
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnDeltailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeltailActionPerformed
         int rowId = tblPeopleDetail.getSelectedRow();
-        if(rowId>0){
-            Vector vRow = (Vector) vData.get(rowId);
-            DialogDetailHuman detailHuman =  new DialogDetailHuman(null, true, Integer.parseInt(vRow.get(0).toString()));
+        if (rowId > 0) {
+            DialogDetailHuman detailHuman = new DialogDetailHuman(null, true);
             detailHuman.setLocationRelativeTo(this);
             detailHuman.setVisible(true);
-        }
-        else {
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn người để hiển thị", "Lỗi",JOptionPane.ERROR_MESSAGE,new javax.swing.ImageIcon(getClass().getResource("/image/alert.png")));
+        } else {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn người để hiển thị",
+                    "Lỗi", JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/image/alert.png")));
         }
     }//GEN-LAST:event_btnDeltailActionPerformed
+    // Click chuột vào sẽ get được giá trị ID của human trong tblHuman
+    private void tblPeopleDetailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPeopleDetailMouseClicked
+        System.out.println("Sự kiện khi click chuột vào jtable");
+        int rowIndex = tblPeopleDetail.getSelectedRow();
+        // Giải thích: vì khi nhấn vào nút để nó Sort thì nó sẽ get nhầm giá trị như lúc trước khi sort
+        int rowModel = tblPeopleDetail.convertRowIndexToModel(rowIndex);
+        int currentHumanID = Integer.parseInt((String) tblPeopleDetail.getModel().getValueAt(rowModel, 0));
+        System.out.println("Current: " + Integer.parseInt((String) tblPeopleDetail.getModel().getValueAt(rowModel, 0)));
+        ShareData.getInstance().setCurrentHumanID(currentHumanID);
+    }//GEN-LAST:event_tblPeopleDetailMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
