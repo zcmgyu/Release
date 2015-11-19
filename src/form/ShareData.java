@@ -14,11 +14,13 @@ public class ShareData {
     private PanelAnnounce pa;
     private PanelRoom pr;
     private PanelPeopleDetail ppd;
+    private PanelReport prt;
     
-    private int roomID;
-    private String roomName;
-    private int[] memberListID;
+    private DialogRoomDetail drd;
     
+    private int currentRoomID;
+    private String currentRoomName;
+    private int currentHumanID;
     
     private static ShareData obj;
     
@@ -37,6 +39,12 @@ public class ShareData {
         if(obj.ppd == null) {
             obj.ppd = new PanelPeopleDetail();
         }
+        if (obj.prt == null) {
+            obj.prt = new PanelReport();
+        }
+//        if (obj.drd == null) {
+//            obj.drd = new DialogRoomDetail(null, true);
+//        }
         return obj;
     }
 
@@ -64,28 +72,44 @@ public class ShareData {
         this.ppd = ppd;
     }
 
-    public int getRoomID() {
-        return roomID;
+    public int getCurrentRoomID() {
+        return currentRoomID;
     }
 
-    public void setRoomID(int roomID) {
-        this.roomID = roomID;
+    public void setCurrentRoomID(int roomID) {
+        this.currentRoomID = roomID;
     }
 
-    public String getRoomName() {
-        return roomName;
+    public String getCurrentRoomName() {
+        return currentRoomName;
     }
 
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
+    public void setCurrentRoomName(String roomName) {
+        this.currentRoomName = roomName;
     }
 
-    public int[] getMemberListID() {
-        return memberListID;
+    public PanelReport getPrt() {
+        return prt;
     }
 
-    public void setMemberListID(int[] memberListID) {
-        this.memberListID = memberListID;
+    public void setPrt(PanelReport prt) {
+        this.prt = prt;
+    }
+
+    public int getCurrentHumanID() {
+        return currentHumanID;
+    }
+
+    public void setCurrentHumanID(int currentHumanID) {
+        this.currentHumanID = currentHumanID;
+    }
+
+    public DialogRoomDetail getDrd() {
+        return drd;
+    }
+
+    public void setDrd(DialogRoomDetail drd) {
+        this.drd = drd;
     }
     
     
