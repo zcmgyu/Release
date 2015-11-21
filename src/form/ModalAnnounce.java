@@ -9,15 +9,15 @@ package form;
  *
  * @author zcmgyu
  */
-public class AnnounceModal {
+public class ModalAnnounce {
     private int ID;
     private String title;
     private String content;
 
-    public AnnounceModal() {
+    public ModalAnnounce() {
     }
 
-    public AnnounceModal(int ID, String title, String content) {
+    public ModalAnnounce(int ID, String title, String content) {
         this.ID = ID;
         this.title = title;
         this.content = content;

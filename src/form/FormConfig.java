@@ -108,18 +108,18 @@ public class FormConfig extends javax.swing.JDialog {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/server.png"))); // NOI18N
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/database-outline.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/database.png"))); // NOI18N
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/account-network.png"))); // NOI18N
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/key.png"))); // NOI18N
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/redo.png"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/key-change.png"))); // NOI18N
 
-        txtHost.setToolTipText("Please enter your username");
+        txtHost.setToolTipText("Nhập host");
         txtHost.setBorder(compoundBorder);
 
-        txtPort.setToolTipText("Please enter your username");
+        txtPort.setToolTipText("Nhập username");
         txtPort.setBorder(compoundBorder);
 
         txtAccount.setToolTipText("Please enter your username");

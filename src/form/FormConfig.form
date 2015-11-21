@@ -147,7 +147,7 @@
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/image/database-outline.png"/>
+              <Image iconType="3" name="/image/database.png"/>
             </Property>
           </Properties>
         </Component>
@@ -168,13 +168,13 @@
         <Component class="javax.swing.JLabel" name="jLabel6">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/image/redo.png"/>
+              <Image iconType="3" name="/image/key-change.png"/>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtHost">
           <Properties>
-            <Property name="toolTipText" type="java.lang.String" value="Please enter your username"/>
+            <Property name="toolTipText" type="java.lang.String" value="Nh&#x1ead;p host"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="compoundBorder" type="code"/>
             </Property>
@@ -182,7 +182,7 @@
         </Component>
         <Component class="javax.swing.JTextField" name="txtPort">
           <Properties>
-            <Property name="toolTipText" type="java.lang.String" value="Please enter your username"/>
+            <Property name="toolTipText" type="java.lang.String" value="Nh&#x1ead;p username"/>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="compoundBorder" type="code"/>
             </Property>

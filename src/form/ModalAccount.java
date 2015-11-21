@@ -4,14 +4,14 @@ package form;
  *
  * @author zcmgy
  */
-public class AccountModal {
+public class ModalAccount {
     private String username;
     private int role;
     private String daylatest;
-    public AccountModal() {
+    public ModalAccount() {
     }
 
-    public AccountModal(String username, int role) {
+    public ModalAccount(String username, int role) {
         this.username = username;
         this.role = role;
     }

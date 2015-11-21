@@ -9,15 +9,15 @@ package form;
  *
  * @author zcmgyu
  */
-public class RoomModal {
+public class ModalRoom {
     private int id;
     private String room;
     private int status;
 
-    public RoomModal() {
+    public ModalRoom() {
     }
 
-    public RoomModal(int id, String room, int status) {
+    public ModalRoom(int id, String room, int status) {
         this.id = id;
         this.room = room;
         this.status = status;

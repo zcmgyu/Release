@@ -190,9 +190,9 @@ public final class FormLogin extends javax.swing.JFrame {
             pnBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnBottomLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
             .addGroup(pnBottomLayout.createSequentialGroup()
                 .addGap(11, 11, 11)
@@ -243,7 +243,7 @@ public final class FormLogin extends javax.swing.JFrame {
             pst.setString(2, pass);
             ResultSet rs = pst.executeQuery();
             if(rs.next()) {
-                AccountModal currentAccount = new AccountModal(
+                ModalAccount currentAccount = new ModalAccount(
                         rs.getString(2), rs.getInt(4));
                 Session.currentAccount = currentAccount;
                 

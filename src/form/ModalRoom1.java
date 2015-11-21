@@ -9,21 +9,21 @@ package form;
  *
  * @author zcmgyu
  */
-public class ModalFloor {
+public class ModalRoom1 {
     private int id;
-    private String floor;;
-    
-    public ModalFloor() {
-    }
-    public ModalFloor(int id, String floor) {
+    private String room;;
+
+    public ModalRoom1(int id, String room) {
         this.id = id;
-        this.floor = floor;
-    }
-    @Override
-    public String toString() {
-        return floor;
+        this.room = room;
     }
 
+    @Override
+    public String toString() {
+        return room;
+    }
+
+    
     public int getId() {
         return id;
     }
@@ -32,14 +32,13 @@ public class ModalFloor {
         this.id = id;
     }
 
-    public String getFloor() {
-        return floor;
+    public String getRoom() {
+        return room;
     }
 
-    public void setFloor(String floor) {
-        this.floor = floor;
+    public void setRoom(String room) {
+        this.room = room;
     }
     
     
-
 }

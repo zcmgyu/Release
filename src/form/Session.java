@@ -10,5 +10,5 @@ package form;
  * @author zcmgyu
  */
 public class Session {
-    public static AccountModal currentAccount;
+    public static ModalAccount currentAccount;
 }

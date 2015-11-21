@@ -21,16 +21,16 @@ import javax.swing.border.EmptyBorder;
  *
  * @author zcmgyu
  */
-public final class EditPopup extends javax.swing.JDialog {
+public final class DialogEditAnnouce extends javax.swing.JDialog {
 
     /**
      * Creates new form
      * @param parent
      * @param modal
      */
-    AnnounceModal am;
+    ModalAnnounce am;
     ApartmentManagementForm parent;
-    public EditPopup(java.awt.Frame parent, boolean modal, AnnounceModal am) {
+    public DialogEditAnnouce(java.awt.Frame parent, boolean modal, ModalAnnounce am) {
         super(parent, modal);
         initComponents();
         this.parent = (ApartmentManagementForm) parent;
@@ -38,8 +38,6 @@ public final class EditPopup extends javax.swing.JDialog {
         Border line = BorderFactory.createLineBorder(Color.lightGray, 2);
         Border empty = new EmptyBorder(2, 10, 2, 10); 
         CompoundBorder cb = new CompoundBorder(line, empty);
-//        CompoundBorder cb = new CompoundBorder();
-//        DesignTools.comboundBorderLF(cb);
         txtTitle.setBorder(cb);
         txtContent.setBorder(cb);
         txtTitle.setText(am.getTitle());
@@ -62,7 +60,7 @@ public final class EditPopup extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtContent = new javax.swing.JTextPane();
         jLabel2 = new javax.swing.JLabel();
-        jXButton1 = new org.jdesktop.swingx.JXButton();
+        btnSend = new org.jdesktop.swingx.JXButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Chỉnh sửa thông báo");
@@ -80,13 +78,13 @@ public final class EditPopup extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel2.setText("Nội dung thông báo");
 
-        jXButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jXButton1.setBorder(null);
-        jXButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/send.png"))); // NOI18N
-        jXButton1.setOpaque(false);
-        jXButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnSend.setBackground(new java.awt.Color(255, 255, 255));
+        btnSend.setBorder(null);
+        btnSend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/send.png"))); // NOI18N
+        btnSend.setOpaque(false);
+        btnSend.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jXButton1ActionPerformed(evt);
+                btnSendActionPerformed(evt);
             }
         });
 
@@ -106,7 +104,7 @@ public final class EditPopup extends javax.swing.JDialog {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jXButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnSend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -121,13 +119,13 @@ public final class EditPopup extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jXButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(btnSend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jXButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXButton1ActionPerformed
+    private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
         String title = txtTitle.getText().trim();
         String content = txtContent.getText();
         String sql = "UPDATE tblAnnounce\n" +
@@ -140,14 +138,14 @@ public final class EditPopup extends javax.swing.JDialog {
             System.out.println("SQL: " + sql);
             System.out.println("Status: " + update);
             if(update > 0) {
-                JOptionPane.showMessageDialog(this, "Update successful");
+                ToolsPopup.showSuccessPopup("Sửa thành công");
                 ShareData.getInstance().getPa().initTitle();
                 this.dispose();
             }
         } catch (SQLException ex) {
             Logger.getLogger(PanelAnnounce.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jXButton1ActionPerformed
+    }//GEN-LAST:event_btnSendActionPerformed
 
     /**
      * @param args the command line arguments
@@ -155,10 +153,10 @@ public final class EditPopup extends javax.swing.JDialog {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private org.jdesktop.swingx.JXButton btnSend;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private org.jdesktop.swingx.JXButton jXButton1;
     private javax.swing.JTextPane txtContent;
     private javax.swing.JTextField txtTitle;
     // End of variables declaration//GEN-END:variables

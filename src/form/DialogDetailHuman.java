@@ -23,25 +23,26 @@ import javax.swing.border.CompoundBorder;
  * @author PhiLong
  */
 public final class DialogDetailHuman extends javax.swing.JDialog {
-    PanelPeopleDetail peopleDetail;
+
     int id;
+
     /**
      * Creates new form DetailHumanForm
+     *
      * @param parent
      * @param modal
-     * @param HumanID
      */
-    public DialogDetailHuman(java.awt.Frame parent, boolean modal,int HumanID) {
+    public DialogDetailHuman(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        id = HumanID;
         initHuman();
         initCompoundBorder();
-        setDisable();
+//        setDisable();
     }
-    
+
     Image img;
     CompoundBorder compoundBorder;
+
     public void initCompoundBorder() {
         txtBirthPlace.setBorder(ToolsDesign.comboundBorderAll());
         txtEmail.setBorder(ToolsDesign.comboundBorderAll());
@@ -54,7 +55,7 @@ public final class DialogDetailHuman extends javax.swing.JDialog {
         txtUserName.setBorder(ToolsDesign.comboundBorderAll());
         txtWorkPlace.setBorder(ToolsDesign.comboundBorderAll());
     }
-    
+
     void setDisable() {
         txtBirthDay.setEditable(false);
         txtArrivalDate.setEditable(false);
@@ -71,6 +72,7 @@ public final class DialogDetailHuman extends javax.swing.JDialog {
         btnMale.setEnabled(false);
         btnFemale.setEnabled(false);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -86,6 +88,8 @@ public final class DialogDetailHuman extends javax.swing.JDialog {
         btnPrevious = new org.jdesktop.swingx.JXButton();
         btnNext = new org.jdesktop.swingx.JXButton();
         btnExit = new org.jdesktop.swingx.JXButton();
+        jXButton1 = new org.jdesktop.swingx.JXButton();
+        jXButton2 = new org.jdesktop.swingx.JXButton();
         top = new javax.swing.JPanel();
         txtRoomID = new javax.swing.JTextField();
         txtReligion = new javax.swing.JTextField();
@@ -121,17 +125,24 @@ public final class DialogDetailHuman extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+        bottom.setBackground(new java.awt.Color(204, 204, 204));
         bottom.setPreferredSize(new java.awt.Dimension(548, 50));
 
-        btnPrevious.setText("Previous");
+        btnPrevious.setBackground(new java.awt.Color(255, 255, 255));
+        btnPrevious.setBorder(null);
+        btnPrevious.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/chevron-left.png"))); // NOI18N
+        btnPrevious.setOpaque(false);
 
-        btnNext.setText(" Next ");
+        btnNext.setBackground(new java.awt.Color(255, 255, 255));
+        btnNext.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/chevron-right.png"))); // NOI18N
+        btnNext.setOpaque(false);
         btnNext.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNextActionPerformed(evt);
             }
         });
 
+        btnExit.setBackground(new java.awt.Color(255, 255, 255));
         btnExit.setText("Thoát");
         btnExit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -139,29 +150,51 @@ public final class DialogDetailHuman extends javax.swing.JDialog {
             }
         });
 
+        jXButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jXButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/chevron-double-right.png"))); // NOI18N
+        jXButton1.setOpaque(false);
+
+        jXButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jXButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/chevron-double-left.png"))); // NOI18N
+        jXButton2.setOpaque(false);
+
         javax.swing.GroupLayout bottomLayout = new javax.swing.GroupLayout(bottom);
         bottom.setLayout(bottomLayout);
         bottomLayout.setHorizontalGroup(
             bottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bottomLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnPrevious, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(jXButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 314, Short.MAX_VALUE)
-                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnPrevious, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jXButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 265, Short.MAX_VALUE)
+                .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        bottomLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnNext, btnPrevious, jXButton1, jXButton2});
+
         bottomLayout.setVerticalGroup(
             bottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bottomLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(bottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPrevious, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGroup(bottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jXButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(bottomLayout.createSequentialGroup()
+                        .addGroup(bottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnPrevious, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jXButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
+
+        bottomLayout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnExit, btnNext, btnPrevious});
 
         getContentPane().add(bottom, java.awt.BorderLayout.PAGE_END);
 
@@ -246,14 +279,18 @@ public final class DialogDetailHuman extends javax.swing.JDialog {
 
         jXLabel4.setText("Giới tính");
 
+        btngGender.add(btnMale);
         btnMale.setText(" Nam");
+        btnMale.setOpaque(false);
         btnMale.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMaleActionPerformed(evt);
             }
         });
 
+        btngGender.add(btnFemale);
         btnFemale.setText(" Nữ");
+        btnFemale.setOpaque(false);
 
         lblImage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -306,7 +343,7 @@ public final class DialogDetailHuman extends javax.swing.JDialog {
                         .addComponent(btnMale)
                         .addGap(30, 30, 30)
                         .addComponent(btnFemale)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
                 .addGroup(topLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(topLayout.createSequentialGroup()
                         .addGroup(topLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -411,18 +448,20 @@ public final class DialogDetailHuman extends javax.swing.JDialog {
     }//GEN-LAST:event_btnMaleActionPerformed
 
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
-        id=id++;
-        String sql = "Select * from tblHuman where id = ?";
+        // Mi coi lại chổ ni phần ShareData hỉ
+        // ShareData.getInstance().getCurrentHumanID();
+        id = id++;
+        String sql = "SELECT * FROM tblHuman WHERE id = ?";
         try (
-            Connection cn = Tools.getConn();
-            PreparedStatement pst = cn.prepareStatement(sql);
-        ) {
+                Connection cn = Tools.getConn();
+                PreparedStatement pst = cn.prepareStatement(sql)
+        ;) {
             pst.setInt(1, id);
             ResultSet rs = pst.executeQuery();
-            if(rs.next()) {
+            if (rs.next()) {
                 txtUserName.setText(rs.getString(2));
                 txtBirthDay.setDate(rs.getDate(3));
-                if(rs.getInt(4)== 1){
+                if (rs.getInt(4) == 1) {
                     btnMale.setSelected(true);
                 } else {
                     btnFemale.setSelected(true);
@@ -437,7 +476,7 @@ public final class DialogDetailHuman extends javax.swing.JDialog {
                 txtArrivalDate.setDate(rs.getDate(12));
                 InputStream is = rs.getBinaryStream(13);
                 System.out.println(is);
-                if(is!=null){
+                if (is != null) {
                     Image image = ImageIO.read(is);
                     img = image.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_SMOOTH);
                     lblImage.setIcon(new ImageIcon(img));
@@ -463,18 +502,18 @@ public final class DialogDetailHuman extends javax.swing.JDialog {
     final void initHuman() {
         String sql = "Select * from tblHuman where id = ?";
         try (
-            Connection cn = Tools.getConn();
-            PreparedStatement pst = cn.prepareStatement(sql);
-        ) {
-            pst.setInt(1, id);
+                Connection cn = Tools.getConn();
+                PreparedStatement pst = cn.prepareStatement(sql);) {
+            pst.setInt(1, ShareData.getInstance().getCurrentHumanID());
             ResultSet rs = pst.executeQuery();
-            if(rs.next()) {
+            if (rs.next()) {
                 txtUserName.setText(rs.getString(2));
                 txtBirthDay.setDate(rs.getDate(3));
-                if(rs.getInt(4)==1){
+                if (rs.getInt(4) == 1) {
+                    btnMale.setSelected(true);
+                } else {
                     btnFemale.setSelected(true);
                 }
-                else btnMale.setSelected(true);
                 txtBirthPlace.setText(rs.getString(5));
                 txtNativeCountry.setText(rs.getString(6));
                 txtNation.setText(rs.getString(7));
@@ -485,7 +524,7 @@ public final class DialogDetailHuman extends javax.swing.JDialog {
                 txtArrivalDate.setDate(rs.getDate(12));
                 InputStream is = rs.getBinaryStream(13);
                 System.out.println(is);
-                if(is!=null){
+                if (is != null) {
                     Image image = ImageIO.read(is);
                     img = image.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_SMOOTH);
                     lblImage.setIcon(new ImageIcon(img));
@@ -493,7 +532,7 @@ public final class DialogDetailHuman extends javax.swing.JDialog {
                 txtRoomID.setText(rs.getString(14));
                 txtEmail.setText(rs.getString(15));
             }
-                
+
         } catch (SQLException ex) {
             Logger.getLogger(DialogDetailHuman.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -510,6 +549,8 @@ public final class DialogDetailHuman extends javax.swing.JDialog {
     private org.jdesktop.swingx.JXButton btnPrevious;
     private javax.swing.ButtonGroup btngGender;
     private javax.swing.JLabel jLabel1;
+    private org.jdesktop.swingx.JXButton jXButton1;
+    private org.jdesktop.swingx.JXButton jXButton2;
     private org.jdesktop.swingx.JXLabel jXLabel1;
     private org.jdesktop.swingx.JXLabel jXLabel10;
     private org.jdesktop.swingx.JXLabel jXLabel11;

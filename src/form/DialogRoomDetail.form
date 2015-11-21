@@ -25,7 +25,7 @@
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="delete">
           <Properties>
-            <Property name="text" type="java.lang.String" value="X&#xf3;a th&#xf4;ng b&#xe1;o"/>
+            <Property name="text" type="java.lang.String" value="X&#xf3;a th&#xe0;nh vi&#xea;n"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteActionPerformed"/>
@@ -68,7 +68,6 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="lblService" alignment="1" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -98,17 +97,10 @@
                                           <Group type="102" attributes="0">
                                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                                               <Component id="jXButton6" min="-2" pref="24" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
                                           </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="jXButton7" min="-2" pref="24" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                          </Group>
+                                          <Component id="jXButton7" alignment="1" min="-2" pref="24" max="-2" attributes="0"/>
                                       </Group>
-                                      <Group type="102" alignment="1" attributes="0">
-                                          <Component id="jXButton8" min="-2" pref="24" max="-2" attributes="0"/>
-                                          <EmptySpace max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="jXButton8" alignment="1" min="-2" pref="24" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <EmptySpace max="-2" attributes="0"/>
@@ -116,28 +108,28 @@
                                           <Component id="jXButton9" alignment="1" min="-2" pref="24" max="-2" attributes="0"/>
                                           <Component id="jXButton10" alignment="1" min="-2" pref="24" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="btnReport" linkSize="2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btnClose" linkSize="2" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jSeparator2" max="32767" attributes="0"/>
+                          <Group type="102" alignment="1" attributes="0">
+                              <Component id="btnReport" linkSize="2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="btnClose" linkSize="2" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="lblService" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jSeparator2" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="jXButton5" min="-2" pref="24" max="-2" attributes="0"/>
+                              <Component id="btnAdd" min="-2" pref="24" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jXButton4" min="-2" pref="24" max="-2" attributes="0"/>
+                              <Component id="btnEdit" min="-2" pref="24" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="jXButton3" min="-2" pref="24" max="-2" attributes="0"/>
+                              <Component id="btnDelete" min="-2" pref="24" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="lblFamMember" min="-2" max="-2" attributes="0"/>
@@ -163,19 +155,21 @@
               <Component id="jSeparator1" min="-2" pref="0" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jXButton3" alignment="1" min="-2" pref="24" max="-2" attributes="0"/>
-                  <Component id="jXButton4" min="-2" pref="24" max="-2" attributes="0"/>
-                  <Component id="jXButton5" min="-2" pref="24" max="-2" attributes="0"/>
+                  <Component id="btnDelete" alignment="1" min="-2" pref="24" max="-2" attributes="0"/>
+                  <Component id="btnEdit" min="-2" pref="24" max="-2" attributes="0"/>
+                  <Component id="btnAdd" min="-2" pref="24" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jSeparator2" min="-2" pref="2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="lblService" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="txtRoomCharge" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jXButton6" alignment="0" min="-2" pref="24" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtRoomCharge" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -210,9 +204,9 @@
                   <Component id="jXButton10" min="-2" pref="24" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnClose" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                  <Component id="btnReport" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="btnReport" alignment="0" min="-2" pref="26" max="-2" attributes="0"/>
+                  <Component id="btnClose" min="-2" pref="26" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="33" max="32767" attributes="0"/>
           </Group>
@@ -242,6 +236,7 @@
             </Property>
           </Properties>
           <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="listFamilyMouseClicked"/>
             <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="listFamilyMousePressed"/>
             <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="listFamilyMouseReleased"/>
           </Events>
@@ -289,6 +284,9 @@
     </Component>
     <Component class="org.jdesktop.swingx.JXButton" name="btnClose">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="Tho&#xe1;t"/>
       </Properties>
       <Events>
@@ -297,13 +295,22 @@
     </Component>
     <Component class="org.jdesktop.swingx.JXButton" name="btnReport">
       <Properties>
+        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="0" green="33" red="ff" type="rgb"/>
+        </Property>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="null"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="ff" green="ff" red="ff" type="rgb"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="B&#xe1;o h&#x1ecf;ng"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReportActionPerformed"/>
       </Events>
     </Component>
-    <Component class="org.jdesktop.swingx.JXButton" name="jXButton3">
+    <Component class="org.jdesktop.swingx.JXButton" name="btnDelete">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -315,10 +322,10 @@
         <Property name="opaque" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jXButton3ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteActionPerformed"/>
       </Events>
     </Component>
-    <Component class="org.jdesktop.swingx.JXButton" name="jXButton4">
+    <Component class="org.jdesktop.swingx.JXButton" name="btnEdit">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -329,8 +336,11 @@
         <Property name="toolTipText" type="java.lang.String" value="Delete"/>
         <Property name="opaque" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="org.jdesktop.swingx.JXButton" name="jXButton5">
+    <Component class="org.jdesktop.swingx.JXButton" name="btnAdd">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -342,7 +352,7 @@
         <Property name="opaque" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jXButton5ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblCleaningFee">

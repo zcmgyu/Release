@@ -92,12 +92,12 @@ public final class PanelAnnounce extends javax.swing.JPanel {
     final void initTitle() {
         String sql = "select * from tblAnnounce order by ID Desc";
         // ### Nhớ chỉnh lại JList thành JList<AnnounceModal> trong phần Properties >>> Code
-        DefaultListModel<AnnounceModal> dlm = new DefaultListModel<>();
+        DefaultListModel<ModalAnnounce> dlm = new DefaultListModel<>();
         try (Connection cn = Tools.getConn();
                 Statement st = cn.createStatement();
                 ResultSet rs = st.executeQuery(sql);) {
             while (rs.next()) {
-                AnnounceModal am = new AnnounceModal(rs.getInt(1), rs.getString(2), rs.getString(3));
+                ModalAnnounce am = new ModalAnnounce(rs.getInt(1), rs.getString(2), rs.getString(3));
                 dlm.addElement(am);
             }
             leftList.setModel(dlm);
@@ -313,7 +313,7 @@ public final class PanelAnnounce extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void leftListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_leftListValueChanged
-        AnnounceModal am = leftList.getSelectedValue();
+        ModalAnnounce am = leftList.getSelectedValue();
         if(am == null) {
             return;
         }
@@ -324,7 +324,7 @@ public final class PanelAnnounce extends javax.swing.JPanel {
         
         String sql = "INSERT INTO tblAnnounce\n"
                    + "VALUES (N'" + txtTitle.getText().trim()+ "', N'" + txtContent.getText() + "');";
-        DefaultListModel<AnnounceModal> dlm = new DefaultListModel<>();
+        DefaultListModel<ModalAnnounce> dlm = new DefaultListModel<>();
         try (Connection cn = Tools.getConn();
                 Statement st = cn.createStatement();
             ) 
@@ -354,33 +354,33 @@ public final class PanelAnnounce extends javax.swing.JPanel {
         amSend = leftList.getSelectedValue();
         check(evt);
     }//GEN-LAST:event_leftListMousePressed
-    AnnounceModal amSend;
-    ArrayList<AnnounceModal> multiAM;
+    ModalAnnounce amSend;
+    ArrayList<ModalAnnounce> multiAM;
     
     private void leftListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_leftListMouseReleased
         amSend = leftList.getSelectedValue();
-        multiAM = (ArrayList<AnnounceModal>) leftList.getSelectedValuesList();
+        multiAM = (ArrayList<ModalAnnounce>) leftList.getSelectedValuesList();
         check(evt);
     }//GEN-LAST:event_leftListMouseReleased
 
     int selectedIndex = -1;
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
         selectedIndex = leftList.getSelectedIndex();
-        EditPopup ep = new EditPopup(null, true, amSend);
+        DialogEditAnnouce ep = new DialogEditAnnouce(null, true, amSend);
         ep.setLocationRelativeTo(this);
         ep.setVisible(true);
     }//GEN-LAST:event_editActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-        List<AnnounceModal> list = leftList.getSelectedValuesList();
+        List<ModalAnnounce> list = leftList.getSelectedValuesList();
         delete(list);
         ShareData.getInstance().getPa().initTitle();
 
     }//GEN-LAST:event_deleteActionPerformed
 
-    boolean delete(List<AnnounceModal> list) {
+    boolean delete(List<ModalAnnounce> list) {
         StringBuilder sql = new StringBuilder("DELETE tblAnnounce WHERE [ID] in (");
-        for (AnnounceModal am : list) {
+        for (ModalAnnounce am : list) {
             sql.append(am.getID()).append(",");
         }
         sql.deleteCharAt(sql.length() - 1);
@@ -431,7 +431,7 @@ public final class PanelAnnounce extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JList<AnnounceModal> leftList;
+    private javax.swing.JList<ModalAnnounce> leftList;
     private javax.swing.JPopupMenu popupEditDel;
     private javax.swing.JScrollPane scpLeft;
     private javax.swing.JScrollPane scpRight;

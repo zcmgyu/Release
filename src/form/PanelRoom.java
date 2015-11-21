@@ -41,13 +41,15 @@ public final class PanelRoom extends javax.swing.JPanel {
         if (sql == null) {
             sql = "SELECT * FROM tblRoom";
         }
+        System.out.println("TRUOC RS");
         // Xoa truoc khi khoi tao
         pnListButton.removeAll();
-
         try (Connection cn = Tools.getConn();
                 Statement st = cn.createStatement();
-                ResultSet rs = st.executeQuery(sql)) {
+                ResultSet rs = st.executeQuery(sql)
+        ) {
             while (rs.next()) {
+                System.out.println("Trong RS");
                 // tạo 1 JPanel    
                 JXPanel pnRoom = new JXPanel();
                 pnRoom.setPreferredSize(new Dimension(80, 80));
@@ -55,34 +57,28 @@ public final class PanelRoom extends javax.swing.JPanel {
                 pnListButton.add(pnRoom);
                 pnListButton.setPreferredSize(new Dimension(pnBottom.getWidth(), 1000));
                 JXButton btnRoom = new JXButton();
-                
                 int roomID = rs.getInt(1);
+//                System.out.println("IN RA SET ROOM ID: " + rs.getInt(1));
                 String roomName = rs.getString(2);
                 btnRoom.addActionListener((ActionEvent e) -> {
-                    
                         // Lay gia tri truoc khi tao ra Dialog Room Detail
-                        System.out.println("ROOM NAME: " + btnRoom.getText());
-
+//                        System.out.println("ROOM NAME: " + btnRoom.getText());
+                        System.out.println("RoomID" + roomID);
                         //                    ShareData.getInstance().setRoomID(Integer.parseInt(btnRoom.getText()));
-                        ShareData.getInstance().setRoomID(roomID);
-                        ShareData.getInstance().setRoomName(roomName);
-
+                        ShareData.getInstance().setCurrentRoomID(roomID);
+                        ShareData.getInstance().setCurrentRoomName(roomName);
 
                         DialogRoomDetail drd = new DialogRoomDetail(null, true);
+//                        DialogRoomDetail drd = ShareData.getInstance().getDrd();
                         drd.setLocationRelativeTo(this);
                         drd.setVisible(true);
                 });
-
 // 
                 btnRoom.setText(Integer.toString(rs.getInt(2)));
                 btnRoom.setPreferredSize(new Dimension(80, 80));
                 
-
                 pnRoom.setLayout(new BorderLayout());
-                pnRoom.add(btnRoom, BorderLayout.CENTER);
-
-                
-                
+                pnRoom.add(btnRoom, BorderLayout.CENTER);  
                 
                 // Kiểm tra tình trạng của phòng
 
@@ -113,7 +109,7 @@ public final class PanelRoom extends javax.swing.JPanel {
     // Khởi tạo Tầng trong Combobox
     void initfloorModal() {
         cbbFloor.removeAllItems();
-        cbbFloor.addItem(new FloorModal(-1, "Tất cả"));
+        cbbFloor.addItem(new ModalFloor(-1, "Tất cả"));
         String sql = "SELECT * FROM tblFloor";
         try (Connection cn = Tools.getConn();
                 Statement st = cn.createStatement();
@@ -121,7 +117,7 @@ public final class PanelRoom extends javax.swing.JPanel {
             while (rs.next()) {
                 int id = rs.getInt(1);
                 String floor = rs.getString(2);
-                FloorModal fm = new FloorModal(id, floor);
+                ModalFloor fm = new ModalFloor(id, floor);
                 cbbFloor.addItem(fm);
             }
         } catch (SQLException ex) {
@@ -132,7 +128,7 @@ public final class PanelRoom extends javax.swing.JPanel {
     // Khởi tạo Tầng trong Combobox
     void initStatus() {
         cbbStatus.removeAllItems();
-        cbbStatus.addItem(new StatusModal(-1, "Tất cả"));
+        cbbStatus.addItem(new ModalStatus(-1, "Tất cả"));
         String sql = "SELECT * FROM tblStatus";
         try (Connection cn = Tools.getConn();
                 Statement st = cn.createStatement();
@@ -140,7 +136,7 @@ public final class PanelRoom extends javax.swing.JPanel {
             while (rs.next()) {
                 int id = rs.getInt(1);
                 String status = rs.getString(2);
-                StatusModal sm = new StatusModal(id, status);
+                ModalStatus sm = new ModalStatus(id, status);
                 cbbStatus.addItem(sm);
 
             }
@@ -167,6 +163,7 @@ public final class PanelRoom extends javax.swing.JPanel {
         cbbStatus = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        tbnReport = new org.jdesktop.swingx.JXButton();
         pnBottom = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         pnListButton = new javax.swing.JPanel();
@@ -210,6 +207,8 @@ public final class PanelRoom extends javax.swing.JPanel {
 
         jLabel2.setText("Tình trạng");
 
+        tbnReport.setText("Quản lí báo hỏng");
+
         javax.swing.GroupLayout pnTopLayout = new javax.swing.GroupLayout(pnTop);
         pnTop.setLayout(pnTopLayout);
         pnTopLayout.setHorizontalGroup(
@@ -223,18 +222,21 @@ public final class PanelRoom extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(cbbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(290, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
+                .addComponent(tbnReport, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         pnTopLayout.setVerticalGroup(
             pnTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnTopLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbbFloor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbFloor, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2))
-                .addContainerGap(69, Short.MAX_VALUE))
+                    .addComponent(jLabel2)
+                    .addComponent(tbnReport, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         add(pnTop, java.awt.BorderLayout.PAGE_START);
@@ -256,7 +258,7 @@ public final class PanelRoom extends javax.swing.JPanel {
         );
         pnBottomLayout.setVerticalGroup(
             pnBottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
         );
 
         add(pnBottom, java.awt.BorderLayout.CENTER);
@@ -270,7 +272,7 @@ public final class PanelRoom extends javax.swing.JPanel {
     void filter() {
         if (cbbFloor.getSelectedIndex() > 0) {
             System.out.println("CBB FLOOR: " + cbbFloor.getSelectedIndex());
-            FloorModal fm = (FloorModal) cbbFloor.getSelectedItem();
+            ModalFloor fm = (ModalFloor) cbbFloor.getSelectedItem();
             sql += " AND FloorID = " + fm.getId();
             System.out.println("SQL FLOOR: " + sql);
             this.updateUI();
@@ -280,7 +282,7 @@ public final class PanelRoom extends javax.swing.JPanel {
         }
         if (cbbStatus.getSelectedIndex() > 0) {
             System.out.println("CBB STATUS: " + cbbStatus.getSelectedIndex());
-            StatusModal sm = (StatusModal) cbbStatus.getSelectedItem();
+            ModalStatus sm = (ModalStatus) cbbStatus.getSelectedItem();
             sql += " AND StatusID = " + sm.getId();
             System.out.println("SQL STATUS: " + sql);
             this.updateUI();
@@ -295,7 +297,6 @@ public final class PanelRoom extends javax.swing.JPanel {
 
     private void cbbFloorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbFloorActionPerformed
         filter();
-
     }//GEN-LAST:event_cbbFloorActionPerformed
 
     private void cbbStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbStatusActionPerformed
@@ -315,5 +316,6 @@ public final class PanelRoom extends javax.swing.JPanel {
     private javax.swing.JPanel pnBottom;
     private javax.swing.JPanel pnListButton;
     private javax.swing.JPanel pnTop;
+    private org.jdesktop.swingx.JXButton tbnReport;
     // End of variables declaration//GEN-END:variables
 }

@@ -264,19 +264,19 @@ public final class PanelPeopleDetail extends javax.swing.JPanel {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         int rowId = tblPeopleDetail.getSelectedRow();
-        if (rowId > 0) {
+        if (rowId > -1) {
             DialogEditHuman replaceHumanForm = new DialogEditHuman(null, true);
             replaceHumanForm.setLocationRelativeTo(this);
             replaceHumanForm.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn người để chỉnh sửa", "Lỗi", JOptionPane.ERROR_MESSAGE, new javax.swing.ImageIcon(getClass().getResource("/image/error.png")));
+            ToolsPopup.showErrorPopup("Vui lòng chọn người để chỉnh sửa");
         }
 
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         int rowId = tblPeopleDetail.getSelectedRow();
-        if (rowId > 0) {
+        if (rowId > -1) {
             int response = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn xóa người này",
                     "Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
                     new ImageIcon(getClass().getResource("/image/help.png")));
@@ -293,7 +293,8 @@ public final class PanelPeopleDetail extends javax.swing.JPanel {
                     try (Connection cn = Tools.getConn();
                             PreparedStatement pst = cn.prepareStatement(sql);) {
                         pst.executeUpdate();
-                        JOptionPane.showMessageDialog(this, "Xóa thành công");
+                        // Popup
+                        ToolsPopup.showSuccessPopup("Xóa thành công");
                         ShareData.getInstance().getPpd().initPeopleDetail(null);
                         ShareData.getInstance().getPpd().initWidthTable();
                         ShareData.getInstance().getPpd().initCellAlign();
@@ -308,14 +309,13 @@ public final class PanelPeopleDetail extends javax.swing.JPanel {
                     break;
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn người để xóa", "Lỗi",
-                    JOptionPane.ERROR_MESSAGE, new ImageIcon(getClass().getResource("/image/alert.png")));
+            ToolsPopup.showErrorPopup("Vui lòng chọn người để xóa");
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnDeltailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeltailActionPerformed
         int rowId = tblPeopleDetail.getSelectedRow();
-        if (rowId > 0) {
+        if (rowId > -1) {
             DialogDetailHuman detailHuman = new DialogDetailHuman(null, true);
             detailHuman.setLocationRelativeTo(this);
             detailHuman.setVisible(true);

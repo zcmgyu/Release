@@ -9,14 +9,14 @@ package form;
  *
  * @author zcmgyu
  */
-public class HumanModal {
+public class ModalHuman {
     private int ID;
     private String name;
 
-    public HumanModal() {
+    public ModalHuman() {
     }
     
-    public HumanModal(int ID, String name) {
+    public ModalHuman(int ID, String name) {
         this.ID = ID;
         this.name = name;
     }

@@ -9,14 +9,14 @@ package form;
  *
  * @author zcmgyu
  */
-public class StatusModal {
+public class ModalStatus {
     private int id;
     private String status;
 
-    public StatusModal() {
+    public ModalStatus() {
     }
 
-    public StatusModal(int id, String status) {
+    public ModalStatus(int id, String status) {
         this.id = id;
         this.status = status;
     }

@@ -5,49 +5,35 @@
  */
 package form;
 
-import java.awt.Color;
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.border.Border;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
 
 /**
  *
  * @author zcmgyu
  */
-public final class EditPopup extends javax.swing.JDialog {
+public final class DialogReport extends javax.swing.JDialog {
 
     /**
      * Creates new form
+     *
      * @param parent
      * @param modal
      */
-    AnnounceModal am;
-    ApartmentManagementForm parent;
-    public EditPopup(java.awt.Frame parent, boolean modal, AnnounceModal am) {
+    public DialogReport(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.parent = (ApartmentManagementForm) parent;
-        this.am = am;
-        Border line = BorderFactory.createLineBorder(Color.lightGray, 2);
-        Border empty = new EmptyBorder(2, 10, 2, 10); 
-        CompoundBorder cb = new CompoundBorder(line, empty);
-//        CompoundBorder cb = new CompoundBorder();
-//        DesignTools.comboundBorderLF(cb);
-        txtTitle.setBorder(cb);
-        txtContent.setBorder(cb);
-        txtTitle.setText(am.getTitle());
-        txtContent.setText(am.getContent());
+        txtTitle.setBorder(ToolsDesign.comboundBorderAll());
+        txtDescription.setBorder(ToolsDesign.comboundBorderAll());
     }
-    
-        
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,109 +43,153 @@ public final class EditPopup extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtTitle = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtContent = new javax.swing.JTextPane();
+        txtTitle = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        cal = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
-        jXButton1 = new org.jdesktop.swingx.JXButton();
+        scrollDescription = new javax.swing.JScrollPane();
+        txtDescription = new javax.swing.JTextPane();
+        btnSend = new org.jdesktop.swingx.JXButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Chỉnh sửa thông báo");
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel1.setText("Báo hỏng");
+
+        txtTitle.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         txtTitle.setBorder(null);
 
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel1.setText("Tiêu đề");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel3.setText("Ngày xảy ra hỏng hóc");
 
-        jScrollPane1.setBorder(null);
+        cal.setDateFormatString("dd - MM - yyyy");
+        cal.setMaxSelectableDate(new java.util.Date(253370743299000L));
+        cal.setMinSelectableDate(new java.util.Date(-62135791101000L));
 
-        txtContent.setBorder(null);
-        jScrollPane1.setViewportView(txtContent);
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        jLabel2.setText("Miêu tả chi tiết hỏng hóc");
 
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel2.setText("Nội dung thông báo");
+        scrollDescription.setBorder(null);
 
-        jXButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jXButton1.setBorder(null);
-        jXButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/send.png"))); // NOI18N
-        jXButton1.setOpaque(false);
-        jXButton1.addActionListener(new java.awt.event.ActionListener() {
+        txtDescription.setBorder(null);
+        scrollDescription.setViewportView(txtDescription);
+
+        btnSend.setBackground(new java.awt.Color(255, 255, 255));
+        btnSend.setBorder(null);
+        btnSend.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/send.png"))); // NOI18N
+        btnSend.setOpaque(false);
+        btnSend.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jXButton1ActionPerformed(evt);
+                btnSendActionPerformed(evt);
             }
         });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnSend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel1)
+                            .addComponent(cal, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(98, 219, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(scrollDescription, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTitle))
+                        .addContainerGap())))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cal, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrollDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnSend, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtTitle, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(0, 242, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jXButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jXButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jXButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXButton1ActionPerformed
-        String title = txtTitle.getText().trim();
-        String content = txtContent.getText();
-        String sql = "UPDATE tblAnnounce\n" +
-                    "SET [Title] = N'" + title + "', [Content] = N'" + content + "'\n" +
-                    "WHERE [ID] = " + am.getID();
-        try (Connection cn = Tools.getConn();
-                Statement st = cn.createStatement();
-                ) {
-            int update = st.executeUpdate(sql);
-            System.out.println("SQL: " + sql);
-            System.out.println("Status: " + update);
-            if(update > 0) {
-                JOptionPane.showMessageDialog(this, "Update successful");
-                ShareData.getInstance().getPa().initTitle();
-                this.dispose();
+    private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
+        String title = txtTitle.getText();
+        String description = txtDescription.getText();
+        Date date = new Date(cal.getDate().getTime());
+        System.out.println("DATE: " + date);
+        java.util.Date today = new Date(Calendar.getInstance().getTimeInMillis());
+        String sql = "INSERT INTO tblReport VALUES(?, ?, ?, ?, ?, ?)";
+        // INSERT INTO tblReport VALUES(1, N'Hỏng ống nước', '2015/11/15', N'Des', '2015/11/15', 1)
+        if (!title.equals("") && !description.equals("") && date != null) {
+            try (
+                    Connection cn = Tools.getConn();
+                    PreparedStatement ps = cn.prepareStatement(sql);
+            ) {
+                ps.setInt(1, ShareData.getInstance().getCurrentRoomID());
+                ps.setString(2, title);
+                ps.setDate(3, date);
+                ps.setString(4, description);
+                ps.setDate(5, (Date) today);
+                ps.setBoolean(6, true);
+                ////////////////////////////
+                int updated = ps.executeUpdate();
+                if (updated > 0) {
+                    JOptionPane.showMessageDialog(null, "Gửi thành công");
+                    this.dispose();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DialogReport.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(PanelAnnounce.class.getName()).log(Level.SEVERE, null, ex);
+        } else {
+            JOptionPane.showMessageDialog(null, "Bạn nhập chưa đầy đủ các mục", "Báo lỗi", JOptionPane.ERROR_MESSAGE, new ImageIcon(getClass().getResource("/image/alert.png")));
         }
-    }//GEN-LAST:event_jXButton1ActionPerformed
+    }//GEN-LAST:event_btnSendActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private org.jdesktop.swingx.JXButton btnSend;
+    private com.toedter.calendar.JDateChooser cal;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private org.jdesktop.swingx.JXButton jXButton1;
-    private javax.swing.JTextPane txtContent;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane scrollDescription;
+    private javax.swing.JTextPane txtDescription;
     private javax.swing.JTextField txtTitle;
     // End of variables declaration//GEN-END:variables
 }

@@ -15,16 +15,21 @@ import javax.swing.border.EmptyBorder;
  *
  * @author zcmgyu
  */
-public class DesignTools {
-    public static void comboundBorderLF(CompoundBorder cb) {
+public class ToolsDesign {
+//    public static void comboundBorderLF(CompoundBorder cb) {
+//        Border line = BorderFactory.createLineBorder(Color.lightGray, 2);
+//        Border empty = new EmptyBorder(0, 10, 0, 10); 
+//        cb = new CompoundBorder(line, empty);
+//    }
+    public static CompoundBorder comboundBorderAll() {
         Border line = BorderFactory.createLineBorder(Color.lightGray, 2);
-        Border empty = new EmptyBorder(0, 10, 0, 10); 
-        cb = new CompoundBorder(line, empty);
+        Border empty = new EmptyBorder(5, 10, 5, 10); 
+        return new CompoundBorder(line, empty);
     }
-    public static void comboundBorderAll(CompoundBorder cb) {
+    public static CompoundBorder compoundBorderLabel() {
         Border line = BorderFactory.createLineBorder(Color.lightGray, 2);
-        Border empty = new EmptyBorder(10, 10, 10, 10); 
-        cb = new CompoundBorder(line, empty);
+        Border empty = new EmptyBorder(0, 0, 0, 0); 
+        return new CompoundBorder(line, empty);
     }
     
     

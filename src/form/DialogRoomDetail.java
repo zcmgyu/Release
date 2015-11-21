@@ -57,7 +57,7 @@ public final class DialogRoomDetail extends javax.swing.JDialog {
     
     void initRoomCharge() {
         String sql = "SELECT TOP 1 r.Room, s.[Service Name], e.[Date], e.Expense FROM tblService_Expense se, tblService s, tblExpense e, tblRoom r\n" +
-                    "WHERE s.ID = se.ServiceID AND e.ID = se.ExpenseID AND r.ServiceID = s.ID AND r.ID = " + ShareData.getInstance().getRoomID() + "\n" +
+                    "WHERE s.ID = se.ServiceID AND e.ID = se.ExpenseID AND r.ServiceID = s.ID AND r.ID = " + ShareData.getInstance().getCurrentRoomID() + "\n" +
                     "ORDER BY [Date] DESC";
         
         try (Connection cn = Tools.getConn();
@@ -77,17 +77,17 @@ public final class DialogRoomDetail extends javax.swing.JDialog {
     
     ///
     void initInfo() {
-        System.out.println("IN RA ROOM: " + ShareData.getInstance().getRoomID());
-        this.setTitle("Phòng " + ShareData.getInstance().getRoomName());
-        String sql = "SELECT ID, Name FROM tblHuman WHERE RoomID = " + ShareData.getInstance().getRoomID();
-        DefaultListModel<HumanModal> listFam = new DefaultListModel<>();
+        System.out.println("IN RA ROOM: " + ShareData.getInstance().getCurrentRoomID());
+        this.setTitle("Phòng " + ShareData.getInstance().getCurrentRoomName());
+        String sql = "SELECT ID, Name FROM tblHuman WHERE RoomID = " + ShareData.getInstance().getCurrentRoomID();
+        DefaultListModel<ModalHuman> listFam = new DefaultListModel<>();
         ArrayList<Integer> listMemberID;
         try (Connection cn = Tools.getConn();
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql)
             ){
             while (rs.next()) {
-                HumanModal human = new HumanModal(rs.getInt(1), rs.getString(2));
+                ModalHuman human = new ModalHuman(rs.getInt(1), rs.getString(2));
                 listFam.addElement(human);
             }
             listFamily.setModel(listFam);
@@ -118,9 +118,9 @@ public final class DialogRoomDetail extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         btnClose = new org.jdesktop.swingx.JXButton();
         btnReport = new org.jdesktop.swingx.JXButton();
-        jXButton3 = new org.jdesktop.swingx.JXButton();
-        jXButton4 = new org.jdesktop.swingx.JXButton();
-        jXButton5 = new org.jdesktop.swingx.JXButton();
+        btnDelete = new org.jdesktop.swingx.JXButton();
+        btnEdit = new org.jdesktop.swingx.JXButton();
+        btnAdd = new org.jdesktop.swingx.JXButton();
         lblCleaningFee = new javax.swing.JLabel();
         lblParkingFee = new javax.swing.JLabel();
         txtRoomCharge = new javax.swing.JFormattedTextField();
@@ -147,7 +147,7 @@ public final class DialogRoomDetail extends javax.swing.JDialog {
         });
         popupMenu.add(edit);
 
-        delete.setText("Xóa thông báo");
+        delete.setText("Xóa thành viên");
         delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteActionPerformed(evt);
@@ -170,6 +170,9 @@ public final class DialogRoomDetail extends javax.swing.JDialog {
 
         listFamily.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         listFamily.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listFamilyMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 listFamilyMousePressed(evt);
             }
@@ -194,6 +197,7 @@ public final class DialogRoomDetail extends javax.swing.JDialog {
 
         jLabel5.setText("Tiền phòng");
 
+        btnClose.setBackground(new java.awt.Color(255, 255, 255));
         btnClose.setText("Thoát");
         btnClose.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,6 +205,9 @@ public final class DialogRoomDetail extends javax.swing.JDialog {
             }
         });
 
+        btnReport.setBackground(new java.awt.Color(255, 51, 0));
+        btnReport.setBorder(null);
+        btnReport.setForeground(new java.awt.Color(255, 255, 255));
         btnReport.setText("Báo hỏng");
         btnReport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,28 +215,33 @@ public final class DialogRoomDetail extends javax.swing.JDialog {
             }
         });
 
-        jXButton3.setBackground(new java.awt.Color(255, 255, 255));
-        jXButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/close.png"))); // NOI18N
-        jXButton3.setToolTipText("Delete");
-        jXButton3.setOpaque(false);
-        jXButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnDelete.setBackground(new java.awt.Color(255, 255, 255));
+        btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/close.png"))); // NOI18N
+        btnDelete.setToolTipText("Delete");
+        btnDelete.setOpaque(false);
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jXButton3ActionPerformed(evt);
+                btnDeleteActionPerformed(evt);
             }
         });
 
-        jXButton4.setBackground(new java.awt.Color(255, 255, 255));
-        jXButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/pencil.png"))); // NOI18N
-        jXButton4.setToolTipText("Delete");
-        jXButton4.setOpaque(false);
-
-        jXButton5.setBackground(new java.awt.Color(255, 255, 255));
-        jXButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/plus_1.png"))); // NOI18N
-        jXButton5.setToolTipText("Delete");
-        jXButton5.setOpaque(false);
-        jXButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnEdit.setBackground(new java.awt.Color(255, 255, 255));
+        btnEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/pencil.png"))); // NOI18N
+        btnEdit.setToolTipText("Delete");
+        btnEdit.setOpaque(false);
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jXButton5ActionPerformed(evt);
+                btnEditActionPerformed(evt);
+            }
+        });
+
+        btnAdd.setBackground(new java.awt.Color(255, 255, 255));
+        btnAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/plus_1.png"))); // NOI18N
+        btnAdd.setToolTipText("Delete");
+        btnAdd.setOpaque(false);
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
             }
         });
 
@@ -289,7 +301,6 @@ public final class DialogRoomDetail extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblService, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -315,35 +326,30 @@ public final class DialogRoomDetail extends javax.swing.JDialog {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addGap(18, 18, 18)
-                                                .addComponent(jXButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addContainerGap())
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                                .addComponent(jXButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addContainerGap()))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addComponent(jXButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addContainerGap()))
+                                                .addComponent(jXButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jXButton7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jXButton8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jXButton9, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jXButton10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addContainerGap())))
+                                            .addComponent(jXButton10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addContainerGap())))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblService, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jSeparator2)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jXButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jXButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jXButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblFamMember, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -364,18 +370,19 @@ public final class DialogRoomDetail extends javax.swing.JDialog {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jXButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jXButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jXButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblService)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txtRoomCharge, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jXButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jXButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(txtRoomCharge, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -401,9 +408,9 @@ public final class DialogRoomDetail extends javax.swing.JDialog {
                         .addComponent(lblParkingFee))
                     .addComponent(jXButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnClose, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
@@ -428,9 +435,9 @@ public final class DialogRoomDetail extends javax.swing.JDialog {
 
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
 //        selectedIndex = leftList.getSelectedIndex();
-        EditHumanDialog ep = new EditHumanDialog(null, true);
-        ep.setLocationRelativeTo(this);
-        ep.setVisible(true);
+//        EditHumanDialog ep = new EditHumanDialog(null, true);
+//        ep.setLocationRelativeTo(this);
+//        ep.setVisible(true);
     }//GEN-LAST:event_editActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
@@ -443,17 +450,19 @@ public final class DialogRoomDetail extends javax.swing.JDialog {
         //        btnSwitchToEditorActionPerformed(evt);
     }//GEN-LAST:event_addActionPerformed
 
-    private void jXButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXButton5ActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jXButton5ActionPerformed
+    }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
-        // TODO add your handling code here:
+        DialogReport dr = new DialogReport(null, true);
+        dr.setLocationRelativeTo(this);
+        dr.setVisible(true);
     }//GEN-LAST:event_btnReportActionPerformed
 
-    private void jXButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jXButton3ActionPerformed
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jXButton3ActionPerformed
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void txtRoomChargeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRoomChargeActionPerformed
         // TODO add your handling code here:
@@ -462,6 +471,17 @@ public final class DialogRoomDetail extends javax.swing.JDialog {
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCloseActionPerformed
+
+    private void listFamilyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listFamilyMouseClicked
+        ModalHuman human = (ModalHuman) listFamily.getSelectedValue();
+        ShareData.getInstance().setCurrentHumanID(human.getID());
+    }//GEN-LAST:event_listFamilyMouseClicked
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        DialogEditHuman edit = new DialogEditHuman(null, true);
+        edit.setLocationRelativeTo(this);
+        edit.setVisible(true);
+    }//GEN-LAST:event_btnEditActionPerformed
 
     /**
      * @param args the command line arguments
@@ -507,7 +527,10 @@ public final class DialogRoomDetail extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem add;
+    private org.jdesktop.swingx.JXButton btnAdd;
     private org.jdesktop.swingx.JXButton btnClose;
+    private org.jdesktop.swingx.JXButton btnDelete;
+    private org.jdesktop.swingx.JXButton btnEdit;
     private org.jdesktop.swingx.JXButton btnReport;
     private javax.swing.JMenuItem delete;
     private javax.swing.JMenuItem edit;
@@ -518,9 +541,6 @@ public final class DialogRoomDetail extends javax.swing.JDialog {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private org.jdesktop.swingx.JXButton jXButton10;
-    private org.jdesktop.swingx.JXButton jXButton3;
-    private org.jdesktop.swingx.JXButton jXButton4;
-    private org.jdesktop.swingx.JXButton jXButton5;
     private org.jdesktop.swingx.JXButton jXButton6;
     private org.jdesktop.swingx.JXButton jXButton7;
     private org.jdesktop.swingx.JXButton jXButton8;
