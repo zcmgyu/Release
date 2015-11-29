@@ -220,7 +220,7 @@ public final class FormLogin extends javax.swing.JFrame {
         Tools.readConfigFile();
         String username = txtUsername.getText().trim();
         String pass = new String(txtPassword.getPassword());
-        String sql = "Select * from tblAccount where Username = ? AND Password = ?";
+        String sql = "SELECT * FROM tblAccount WHERE Username = ? AND Password = ?";
         
         Connection cn = Tools.getConn();
         if(cn == null) {
@@ -245,8 +245,7 @@ public final class FormLogin extends javax.swing.JFrame {
             if(rs.next()) {
                 ModalAccount currentAccount = new ModalAccount(
                         rs.getString(2), rs.getInt(4));
-                Session.currentAccount = currentAccount;
-                
+                ShareData.getInstance().setAccount(currentAccount);
                 ApartmentManagementForm amf = new ApartmentManagementForm();
                 amf.setLocationRelativeTo(this);
                 amf.setVisible(true);

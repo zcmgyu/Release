@@ -16,6 +16,8 @@ public class ShareData {
     private PanelPeopleDetail ppd;
     private PanelReport prt;
     
+    private ModalAccount account;
+    
     private DialogRoomDetail drd;
     
     private int currentRoomID;
@@ -110,6 +112,14 @@ public class ShareData {
 
     public void setDrd(DialogRoomDetail drd) {
         this.drd = drd;
+    }
+
+    public ModalAccount getAccount() {
+        return account;
+    }
+
+    public void setAccount(ModalAccount account) {
+        this.account = account;
     }
     
     

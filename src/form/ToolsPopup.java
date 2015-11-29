@@ -23,4 +23,10 @@ public class ToolsPopup {
         JOptionPane.showMessageDialog(null, message, "Báo lỗi",
                     JOptionPane.ERROR_MESSAGE, new ImageIcon(new Object().getClass().getResource("/image/alert.png")));
     }
+    
+    static int showConfirmPopup(String message) {
+        return JOptionPane.showConfirmDialog(null, message,
+                    "Xác nhận", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+                    new ImageIcon(new Object().getClass().getResource("/image/help.png")));
+    }
 }

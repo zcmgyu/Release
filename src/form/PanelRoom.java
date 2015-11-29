@@ -82,7 +82,7 @@ public final class PanelRoom extends javax.swing.JPanel {
                 
                 // Kiểm tra tình trạng của phòng
 
-                if (rs.getBoolean(6)) {
+                if (rs.getBoolean(5)) {
                     btnRoom.setBackground(Color.LIGHT_GRAY);
                 } else {
                     btnRoom.setBackground(new Color(255, 102, 102));

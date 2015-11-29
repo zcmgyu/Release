@@ -7,7 +7,10 @@ package form;
 public class ModalAccount {
     private String username;
     private int role;
-    private String daylatest;
+//    private String daylatest;
+    public static final int ADMIN = 0;
+    public static final int USER = 1;
+    
     public ModalAccount() {
     }
 

@@ -32,5 +32,11 @@ public class ToolsDesign {
         return new CompoundBorder(line, empty);
     }
     
+    public static CompoundBorder compoundBorderForJXSearchField() {
+        Border line = BorderFactory.createLineBorder(Color.lightGray, 2);
+        Border empty = new EmptyBorder(5, 10, 5, 3); 
+        return new CompoundBorder(line, empty);
+    }
+    
     
 }

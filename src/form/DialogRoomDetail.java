@@ -56,16 +56,21 @@ public final class DialogRoomDetail extends javax.swing.JDialog {
     }
     
     void initRoomCharge() {
-        String sql = "SELECT TOP 1 r.Room, s.[Service Name], e.[Date], e.Expense FROM tblService_Expense se, tblService s, tblExpense e, tblRoom r\n" +
-                    "WHERE s.ID = se.ServiceID AND e.ID = se.ExpenseID AND r.ServiceID = s.ID AND r.ID = " + ShareData.getInstance().getCurrentRoomID() + "\n" +
-                    "ORDER BY [Date] DESC";
+//        String sql = "SELECT TOP 1 r.Room, s.[Service Name], e.[Date], e.Expense FROM tblService_Expense se, tblService s, tblExpense e, tblRoom r\n" +
+//                    "WHERE s.ID = se.ServiceID AND e.ID = se.ExpenseID AND r.ServiceID = s.ID AND r.ID = " + ShareData.getInstance().getCurrentRoomID() + "\n" +
+//                    "ORDER BY [Date] DESC";
+        String sql = "SELECT TOP 1 r.ID [Room ID], us.[Month], us.[Year], us.Expense, s.ID serviceID \n" +
+                     "FROM tblRoom r, tblUseService us, tblService s \n" +
+                     "WHERE r.ID = us.RoomID AND s.ID = us.ServiceID AND r.ID = " 
+                      + ShareData.getInstance().getCurrentRoomID() + " AND s.ID = 1\n" +
+                     "ORDER BY [Year], [Month] DESC";
         
         try (Connection cn = Tools.getConn();
                 Statement st = cn.createStatement();
                 ResultSet rs = st.executeQuery(sql)
                 ){
             while (rs.next()) {                
-                txtRoomCharge.setText("Ngày " + rs.getDate(3) + " trả " + rs.getString(4) + " VNĐ");
+                txtRoomCharge.setText("Tháng " + rs.getInt(2) + " - " + rs.getString(3) + " trả " + rs.getString(4) + " VNĐ");
             }
             txtRoomCharge.setEnabled(false);
         } catch (SQLException ex) {

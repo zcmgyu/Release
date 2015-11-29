@@ -32,6 +32,8 @@ public final class DialogReport extends javax.swing.JDialog {
         initComponents();
         txtTitle.setBorder(ToolsDesign.comboundBorderAll());
         txtDescription.setBorder(ToolsDesign.comboundBorderAll());
+        java.util.Date td = new Date(Calendar.getInstance().getTimeInMillis());
+        cal.setDate(td);
     }
 
     /**

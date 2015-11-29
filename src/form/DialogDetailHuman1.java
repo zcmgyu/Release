@@ -12,7 +12,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -23,23 +22,20 @@ import javax.swing.border.CompoundBorder;
  *
  * @author PhiLong
  */
-public final class DialogDetailHuman extends javax.swing.JDialog {
+public final class DialogDetailHuman1 extends javax.swing.JDialog {
 
     int id;
-    
+
     /**
      * Creates new form DetailHumanForm
      *
      * @param parent
      * @param modal
-     * @param sql
      */
-    public DialogDetailHuman(java.awt.Frame parent, boolean modal, String sql) {
+    public DialogDetailHuman1(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        System.out.println("Dialog Detail Human SQL:" + sql);
-        initHuman(sql);
-//        System.out.println("InitHumang SQL :"+sql);
+        initHuman();
         initCompoundBorder();
 //        setDisable();
     }
@@ -92,8 +88,8 @@ public final class DialogDetailHuman extends javax.swing.JDialog {
         btnPrevious = new org.jdesktop.swingx.JXButton();
         btnNext = new org.jdesktop.swingx.JXButton();
         btnExit = new org.jdesktop.swingx.JXButton();
-        btnLast = new org.jdesktop.swingx.JXButton();
-        btnFirst = new org.jdesktop.swingx.JXButton();
+        jXButton1 = new org.jdesktop.swingx.JXButton();
+        jXButton2 = new org.jdesktop.swingx.JXButton();
         top = new javax.swing.JPanel();
         txtRoomID = new javax.swing.JTextField();
         txtReligion = new javax.swing.JTextField();
@@ -136,11 +132,6 @@ public final class DialogDetailHuman extends javax.swing.JDialog {
         btnPrevious.setBorder(null);
         btnPrevious.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/chevron-left.png"))); // NOI18N
         btnPrevious.setOpaque(false);
-        btnPrevious.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPreviousActionPerformed(evt);
-            }
-        });
 
         btnNext.setBackground(new java.awt.Color(255, 255, 255));
         btnNext.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/chevron-right.png"))); // NOI18N
@@ -159,23 +150,13 @@ public final class DialogDetailHuman extends javax.swing.JDialog {
             }
         });
 
-        btnLast.setBackground(new java.awt.Color(255, 255, 255));
-        btnLast.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/chevron-double-right.png"))); // NOI18N
-        btnLast.setOpaque(false);
-        btnLast.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLastActionPerformed(evt);
-            }
-        });
+        jXButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jXButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/chevron-double-right.png"))); // NOI18N
+        jXButton1.setOpaque(false);
 
-        btnFirst.setBackground(new java.awt.Color(255, 255, 255));
-        btnFirst.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/chevron-double-left.png"))); // NOI18N
-        btnFirst.setOpaque(false);
-        btnFirst.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFirstActionPerformed(evt);
-            }
-        });
+        jXButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jXButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/chevron-double-left.png"))); // NOI18N
+        jXButton2.setOpaque(false);
 
         javax.swing.GroupLayout bottomLayout = new javax.swing.GroupLayout(bottom);
         bottom.setLayout(bottomLayout);
@@ -183,26 +164,26 @@ public final class DialogDetailHuman extends javax.swing.JDialog {
             bottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bottomLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(btnFirst, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jXButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPrevious, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnLast, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jXButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 265, Short.MAX_VALUE)
                 .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        bottomLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnFirst, btnLast, btnNext, btnPrevious});
+        bottomLayout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnNext, btnPrevious, jXButton1, jXButton2});
 
         bottomLayout.setVerticalGroup(
             bottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(bottomLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(bottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnFirst, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jXButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(bottomLayout.createSequentialGroup()
                         .addGroup(bottomLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnNext, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -210,7 +191,7 @@ public final class DialogDetailHuman extends javax.swing.JDialog {
                                 .addComponent(btnPrevious, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(btnLast, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jXButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -313,8 +294,6 @@ public final class DialogDetailHuman extends javax.swing.JDialog {
         btnFemale.setOpaque(false);
 
         lblImage.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        lblImage.setAlignmentY(0
-        );
 
         txtArrivalDate.setDate(new java.util.Date(1447606800000L));
 
@@ -411,7 +390,7 @@ public final class DialogDetailHuman extends javax.swing.JDialog {
                             .addComponent(jXLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnFemale)
                             .addComponent(btnMale)))
-                    .addComponent(lblImage, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblImage, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                     .addComponent(jXLabel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(topLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -453,26 +432,6 @@ public final class DialogDetailHuman extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    ResultSet rs;
-    Statement st;
-    PanelPeopleDetail ppd;
-    /**
-     * @param args the command line arguments
-     */
-    final void initHuman(String sql) {
-        try {
-            Connection cn = Tools.getConn();
-            st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            rs = st.executeQuery(sql);
-//            System.out.println(ShareData.getInstance().getPpd().rowIndex);
-            if(rs.absolute(ShareData.getInstance().getPpd().rowModel + 1)){
-                System.out.println("RowModel: " + ShareData.getInstance().getPpd().rowModel);
-                setData();
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DialogDetailHuman.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-    }
     private void txtRoomIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRoomIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRoomIDActionPerformed
@@ -489,23 +448,19 @@ public final class DialogDetailHuman extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnMaleActionPerformed
 
-    
     private void btnNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNextActionPerformed
-        try {
-            if(rs.next()) {
-                setData();
-                int temp = rs.getRow();
-            System.out.println(temp);
-                System.out.println("HumanID: "+ShareData.getInstance().getCurrentHumanID());
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DialogDetailHuman.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnNextActionPerformed
-
-    private void setData(){
-        try {
-            txtUserName.setText(rs.getString(2));
+        // Mi coi lại chổ ni phần ShareData hỉ
+        // ShareData.getInstance().getCurrentHumanID();
+        id = id++;
+        String sql = "SELECT * FROM tblHuman WHERE id = ?";
+        try (
+                Connection cn = Tools.getConn();
+                PreparedStatement pst = cn.prepareStatement(sql)
+        ;) {
+            pst.setInt(1, id);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                txtUserName.setText(rs.getString(2));
                 txtBirthDay.setDate(rs.getDate(3));
                 if (rs.getInt(4) == 1) {
                     btnMale.setSelected(true);
@@ -527,71 +482,76 @@ public final class DialogDetailHuman extends javax.swing.JDialog {
                     img = image.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_SMOOTH);
                     lblImage.setIcon(new ImageIcon(img));
                 }
-                else lblImage.setIcon(null);
                 txtRoomID.setText(rs.getString(14));
                 txtEmail.setText(rs.getString(15));
+            }
+
         } catch (SQLException ex) {
-            Logger.getLogger(DialogDetailHuman.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DialogDetailHuman1.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(DialogDetailHuman.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DialogDetailHuman1.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }//GEN-LAST:event_btnNextActionPerformed
+
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 
-    private void btnFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFirstActionPerformed
-        try {
-            if(rs.first()) {
-                setData();
-                int temp = rs.getRow();
-            System.out.println(temp);
-            } else {
-                ToolsPopup.showErrorPopup("Empty data");
+    /**
+     * @param args the command line arguments
+     */
+    final void initHuman() {
+        String sql = "Select * from tblHuman where id = ?";
+        try (
+                Connection cn = Tools.getConn();
+                PreparedStatement pst = cn.prepareStatement(sql);) {
+            pst.setInt(1, ShareData.getInstance().getCurrentHumanID());
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                txtUserName.setText(rs.getString(2));
+                txtBirthDay.setDate(rs.getDate(3));
+                if (rs.getInt(4) == 1) {
+                    btnMale.setSelected(true);
+                } else {
+                    btnFemale.setSelected(true);
+                }
+                txtBirthPlace.setText(rs.getString(5));
+                txtNativeCountry.setText(rs.getString(6));
+                txtNation.setText(rs.getString(7));
+                txtReligion.setText(rs.getString(8));
+                txtOccupation.setText(rs.getString(9));
+                txtWorkPlace.setText(rs.getString(10));
+                txtIDCard.setText(rs.getString(11));
+                txtArrivalDate.setDate(rs.getDate(12));
+                InputStream is = rs.getBinaryStream(13);
+                System.out.println(is);
+                if (is != null) {
+                    Image image = ImageIO.read(is);
+                    img = image.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), Image.SCALE_SMOOTH);
+                    lblImage.setIcon(new ImageIcon(img));
+                }
+                txtRoomID.setText(rs.getString(14));
+                txtEmail.setText(rs.getString(15));
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(DialogDetailHuman.class.getName()).log(Level.SEVERE, null, ex);
-        }// TODO add your handling code here:// TODO add your handling code here:
-    }//GEN-LAST:event_btnFirstActionPerformed
 
-    private void btnPreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPreviousActionPerformed
-        try {
-            if(rs.previous()) {
-                setData();
-                int temp = rs.getRow();
-                System.out.println(temp);
-                System.out.println("HumanID: "+ShareData.getInstance().getCurrentHumanID());
-            }
         } catch (SQLException ex) {
-            Logger.getLogger(DialogDetailHuman.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DialogDetailHuman1.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(DialogDetailHuman1.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_btnPreviousActionPerformed
-
-    private void btnLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLastActionPerformed
-        try {
-            if(rs.last()) {
-                setData();
-            } else {
-                ToolsPopup.showErrorPopup("Empty data");
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(DialogDetailHuman.class.getName()).log(Level.SEVERE, null, ex);
-        }// TODO add your handling code here:// TODO add your handling code here:
-    }//GEN-LAST:event_btnLastActionPerformed
-
-    
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel bottom;
     private org.jdesktop.swingx.JXButton btnExit;
     private javax.swing.JRadioButton btnFemale;
-    private org.jdesktop.swingx.JXButton btnFirst;
-    private org.jdesktop.swingx.JXButton btnLast;
     private javax.swing.JRadioButton btnMale;
     private org.jdesktop.swingx.JXButton btnNext;
     private org.jdesktop.swingx.JXButton btnPrevious;
     private javax.swing.ButtonGroup btngGender;
     private javax.swing.JLabel jLabel1;
+    private org.jdesktop.swingx.JXButton jXButton1;
+    private org.jdesktop.swingx.JXButton jXButton2;
     private org.jdesktop.swingx.JXLabel jXLabel1;
     private org.jdesktop.swingx.JXLabel jXLabel10;
     private org.jdesktop.swingx.JXLabel jXLabel11;
