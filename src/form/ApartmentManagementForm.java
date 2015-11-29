@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package form;
 
 import java.awt.BorderLayout;
@@ -35,7 +30,10 @@ public final class ApartmentManagementForm extends javax.swing.JFrame {
         initComponents();
         initCollapsePanel();
         initAnnounce();
-        
+        if (ShareData.getInstance().getAccount().getRole() == ModalAccount.USER) {
+            btnReport.setVisible(false);
+            btnReport2.setVisible(false);
+        }
     }
     
     void refreshAnnounce() {
@@ -453,6 +451,7 @@ public final class ApartmentManagementForm extends javax.swing.JFrame {
         btnPeopleDetailActionPerformed(evt);
         
     }//GEN-LAST:event_btnPeopleDetail2ActionPerformed
+    
     
     PanelReport prt = ShareData.getInstance().getPrt();
     private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
