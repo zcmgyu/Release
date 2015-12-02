@@ -36,15 +36,19 @@ public final class PanelRoom extends javax.swing.JPanel {
 
     // Khởi tạo danh sách phòng
 //    JXButton btnRoom;
-    int countHuman() {
-        String sql = "SELECT COUNT(*) FROM tblHuman WHERE RoomID = " 
-                + ShareData.getInstance().getCurrentRoomID();
+    int countHuman(int i) {
+        String sql = "SELECT COUNT(*) FROM tblHuman WHERE RoomID = " + i; 
+//                + ShareData.getInstance().getCurrentRoomID();
         try (Connection cn = Tools.getConn();
                 Statement st = cn.createStatement();
                 ResultSet rs = st.executeQuery(sql)
         ) {
-            rs.next();
-            return rs.getInt(1);
+            while (rs.next()) {                
+                System.out.println("COUNT: " + rs.getInt(1));
+                System.out.println("CurrentID: " + ShareData.getInstance().getCurrentRoomID());
+                return rs.getInt(1);
+            }
+            
             
             
         } catch (SQLException ex) {
@@ -61,12 +65,15 @@ public final class PanelRoom extends javax.swing.JPanel {
         System.out.println("TRUOC RS");
         // Xoa truoc khi khoi tao
         pnListButton.removeAll();
-        try (Connection cn = Tools.getConn();
-                Statement st = cn.createStatement();
-                ResultSet rs = st.executeQuery(sql)
-        ) {
+        Connection cn = Tools.getConn();
+                Statement st;
+        try {
+            st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
             while (rs.next()) {
                 System.out.println("Trong RS");
+                int roomID = rs.getInt(1);
+                System.out.println("Count: " + countHuman(roomID));
                 // tạo 1 JPanel    
                 JXPanel pnRoom = new JXPanel();
                 pnRoom.setPreferredSize(new Dimension(80, 80));
@@ -74,7 +81,7 @@ public final class PanelRoom extends javax.swing.JPanel {
                 pnListButton.add(pnRoom);
                 pnListButton.setPreferredSize(new Dimension(pnBottom.getWidth(), 1000));
                 JXButton btnRoom = new JXButton();
-                int roomID = rs.getInt(1);
+
 //                System.out.println("IN RA SET ROOM ID: " + rs.getInt(1));
                 String roomName = rs.getString(2);
                 
@@ -85,31 +92,42 @@ public final class PanelRoom extends javax.swing.JPanel {
                         //                    ShareData.getInstance().setRoomID(Integer.parseInt(btnRoom.getText()));
                         ShareData.getInstance().setCurrentRoomID(roomID);
                         ShareData.getInstance().setCurrentRoomName(roomName);
-
+                        btnRoom.setBackground(new Color(255, 102, 102));
+                        
                         DialogRoomDetail drd = new DialogRoomDetail(null, true);
                         drd.setLocationRelativeTo(this);
                         drd.setVisible(true);
                 });
+                
+//                if (countHuman() > 0) {
+//                            System.out.println("LONG-1-1-1-1--------------");
+//                            btnRoom.setBackground(Color.LIGHT_GRAY);
+//                        } else {
+//                            System.out.println("COUNT: " + countHuman());
+//                    System.out.println("LONG------------------");
+//                    btnRoom.setBackground(new Color(255, 102, 102));
+//                }
+//                
                 
                 btnRoom.setText(Integer.toString(rs.getInt(2)));
                 btnRoom.setPreferredSize(new Dimension(80, 80));
                 
                 pnRoom.setLayout(new BorderLayout());
                 pnRoom.add(btnRoom, BorderLayout.CENTER);  
-                
+//                System.out.println(countHuman());
                 // Kiểm tra tình trạng của phòng
                 System.out.println("TRUOC COUNT");
-                if (countHuman() > 0) {
-                    System.out.println("LONG-1-1-1-1--------------");
-                    btnRoom.setBackground(Color.LIGHT_GRAY);
-                } else {
-                    System.out.println("LONG------------------");
-                    btnRoom.setBackground(new Color(255, 102, 102));
-                }
+
                 System.out.println("SAUUUUUUUUU");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PanelRoom.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                cn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(PanelRoom.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
 //        for (int i = 0; i < 100; i++) {
