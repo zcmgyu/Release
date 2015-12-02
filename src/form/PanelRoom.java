@@ -36,6 +36,23 @@ public final class PanelRoom extends javax.swing.JPanel {
 
     // Khởi tạo danh sách phòng
 //    JXButton btnRoom;
+    int countHuman() {
+        String sql = "SELECT COUNT(*) FROM tblHuman WHERE RoomID = " 
+                + ShareData.getInstance().getCurrentRoomID();
+        try (Connection cn = Tools.getConn();
+                Statement st = cn.createStatement();
+                ResultSet rs = st.executeQuery(sql)
+        ) {
+            rs.next();
+            return rs.getInt(1);
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(PanelRoom.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+    
     void initListRoom(String sql) {
         //        String sql = "SELECT COUNT(ID) AS RoomCount FROM tblRoom";
         if (sql == null) {
@@ -60,6 +77,7 @@ public final class PanelRoom extends javax.swing.JPanel {
                 int roomID = rs.getInt(1);
 //                System.out.println("IN RA SET ROOM ID: " + rs.getInt(1));
                 String roomName = rs.getString(2);
+                
                 btnRoom.addActionListener((ActionEvent e) -> {
                         // Lay gia tri truoc khi tao ra Dialog Room Detail
 //                        System.out.println("ROOM NAME: " + btnRoom.getText());
@@ -69,11 +87,10 @@ public final class PanelRoom extends javax.swing.JPanel {
                         ShareData.getInstance().setCurrentRoomName(roomName);
 
                         DialogRoomDetail drd = new DialogRoomDetail(null, true);
-//                        DialogRoomDetail drd = ShareData.getInstance().getDrd();
                         drd.setLocationRelativeTo(this);
                         drd.setVisible(true);
                 });
-// 
+                
                 btnRoom.setText(Integer.toString(rs.getInt(2)));
                 btnRoom.setPreferredSize(new Dimension(80, 80));
                 
@@ -81,16 +98,32 @@ public final class PanelRoom extends javax.swing.JPanel {
                 pnRoom.add(btnRoom, BorderLayout.CENTER);  
                 
                 // Kiểm tra tình trạng của phòng
-
-                if (rs.getBoolean(5)) {
+                System.out.println("TRUOC COUNT");
+                if (countHuman() > 0) {
+                    System.out.println("LONG-1-1-1-1--------------");
                     btnRoom.setBackground(Color.LIGHT_GRAY);
                 } else {
+                    System.out.println("LONG------------------");
                     btnRoom.setBackground(new Color(255, 102, 102));
                 }
+                System.out.println("SAUUUUUUUUU");
             }
         } catch (SQLException ex) {
             Logger.getLogger(PanelRoom.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+//        for (int i = 0; i < 100; i++) {
+//            JXPanel pnRoom = new JXPanel();
+//            pnRoom.setBackground(Color.BLACK);
+//            pnRoom.setPreferredSize(new Dimension(80, 80));
+//            pnListButton.add(pnRoom);
+//            pnListButton.setPreferredSize(new Dimension(pnBottom.getWidth(), HEIGHT));
+//            JXButton btnRoom = new JXButton(Integer.toString(i));
+//            btnRoom.setPreferredSize(new Dimension(80, 80));
+//            btnRoom.setBackground(Color.red);
+//            pnRoom.setLayout(new BorderLayout());
+//            pnRoom.add(btnRoom, BorderLayout.CENTER);
+//        }
 
 //        for (int i = 0; i < 100; i++) {
 //            JXPanel pnRoom = new JXPanel();
@@ -109,7 +142,7 @@ public final class PanelRoom extends javax.swing.JPanel {
     // Khởi tạo Tầng trong Combobox
     void initfloorModal() {
         cbbFloor.removeAllItems();
-        cbbFloor.addItem(new ModalFloor(-1, "Tất cả"));
+        cbbFloor.addItem(new ModalFloor(-1, " Tất cả"));
         String sql = "SELECT * FROM tblFloor";
         try (Connection cn = Tools.getConn();
                 Statement st = cn.createStatement();
@@ -128,7 +161,7 @@ public final class PanelRoom extends javax.swing.JPanel {
     // Khởi tạo Tầng trong Combobox
     void initStatus() {
         cbbStatus.removeAllItems();
-        cbbStatus.addItem(new ModalStatus(-1, "Tất cả"));
+        cbbStatus.addItem(new ModalStatus(-1, " Tất cả"));
         String sql = "SELECT * FROM tblStatus";
         try (Connection cn = Tools.getConn();
                 Statement st = cn.createStatement();
