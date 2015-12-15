@@ -152,7 +152,7 @@ public final class DialogReport extends javax.swing.JDialog {
         Date date = new Date(cal.getDate().getTime());
         System.out.println("DATE: " + date);
         java.util.Date today = new Date(Calendar.getInstance().getTimeInMillis());
-        String sql = "INSERT INTO tblReport VALUES(?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO tblReport VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
         // INSERT INTO tblReport VALUES(1, N'Hỏng ống nước', '2015/11/15', N'Des', '2015/11/15', 1)
         if (!title.equals("") && !description.equals("") && date != null) {
             try (
@@ -164,11 +164,14 @@ public final class DialogReport extends javax.swing.JDialog {
                 ps.setDate(3, date);
                 ps.setString(4, description);
                 ps.setDate(5, (Date) today);
-                ps.setBoolean(6, true);
+                ps.setInt(6, 1); // set Status
+                ps.setInt(7, 0); // set Assignee
+                ps.setString(8, "");
                 ////////////////////////////
                 int updated = ps.executeUpdate();
                 if (updated > 0) {
                     JOptionPane.showMessageDialog(null, "Gửi thành công");
+                    ShareData.getInstance().getPrt().initReport(null);
                     this.dispose();
                 }
             } catch (SQLException ex) {

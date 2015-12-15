@@ -9,20 +9,31 @@ package form;
  *
  * @author zcmgyu
  */
-public class ModalRoom1 {
+public class ModalRoom {
     private int id;
-    private String room;;
+    private String room;
+    private int status;
 
-    public ModalRoom1(int id, String room) {
+    public ModalRoom() {
+    }
+
+    public ModalRoom(int id, String room, int status) {
         this.id = id;
         this.room = room;
+        this.status = status;
     }
 
     @Override
     public String toString() {
-        return room;
+        if (status == 1) {
+            return "Đã thuê";
+        } else if (status == 0) {
+            return "Chưa thuê";
+        }
+        return "Tất cả";
     }
 
+    
     
     public int getId() {
         return id;
@@ -39,6 +50,15 @@ public class ModalRoom1 {
     public void setRoom(String room) {
         this.room = room;
     }
+
+    public int isStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+    
     
     
 }
